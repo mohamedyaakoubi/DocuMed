@@ -1,4 +1,4 @@
 export const ClientDashboard = () => {
 
-    return(<div>hello</div>);
+    return(<div>client dashboard</div>);
 };

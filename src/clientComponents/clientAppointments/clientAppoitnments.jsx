@@ -1,4 +1,4 @@
 export const ClientAppointments = () => {
 
-    return(<div>hello</div>);
+    return(<div>client appoint</div>);
 };

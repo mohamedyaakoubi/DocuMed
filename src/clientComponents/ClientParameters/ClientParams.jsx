@@ -1,4 +1,4 @@
 export const ClientParams = () => {
 
-    return(<div>hello</div>);
+    return(<div>client params</div>);
 };

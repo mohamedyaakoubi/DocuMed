@@ -1,4 +1,4 @@
 export const Appointments = () => {
 
-    return(<div>hello</div>);
+    return(<div>appointment</div>);
 };

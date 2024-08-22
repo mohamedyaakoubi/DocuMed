@@ -1,4 +1,4 @@
 export const ClientSignUp = () => {
 
-    return(<div>hello</div>);
+    return(<div>client dign up</div>);
 };

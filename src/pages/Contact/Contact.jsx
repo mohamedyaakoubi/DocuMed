@@ -1,4 +1,4 @@
 export const Contact = () => {
 
-    return(<div>hello</div>);
+    return(<div>contact</div>);
 };

@@ -1,4 +1,4 @@
 export const Footer = () => {
 
-    return(<div>hello</div>);
+    return(<div>footer</div>);
 };
