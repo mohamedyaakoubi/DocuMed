@@ -1,4 +1,4 @@
-export const navbar = () => {
+export const About = () => {
 
     return(<div>hello</div>);
 };

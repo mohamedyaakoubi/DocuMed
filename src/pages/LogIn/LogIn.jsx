@@ -1,4 +1,4 @@
-export const about = () => {
+export const LogIn = () => {
 
     return(<div>hello</div>);
 };

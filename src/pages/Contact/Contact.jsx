@@ -1,4 +1,4 @@
-export const contact = () => {
+export const Contact = () => {
 
     return(<div>hello</div>);
 };

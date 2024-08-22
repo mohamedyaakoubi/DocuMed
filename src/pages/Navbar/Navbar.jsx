@@ -1,4 +1,4 @@
-export const footer = () => {
+export const Navbar = () => {
 
     return(<div>hello</div>);
 };

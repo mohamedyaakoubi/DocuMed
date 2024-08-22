@@ -1,26 +1,26 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { NavBar } from './Components/NavBar';
-import { Home } from './Components/Home';
-import { About } from './Components/About';
-import Contact from './Components/Contact';
-import { LogIn } from './Components/LogIn';
-import { SignUp } from './Components/SignUp';
-import { Footer } from './Components/Footer';
-import { DashBoard } from './Components/DashBoard';
+import { Navbar } from './Pages/Navbar/Navbar';
+import {Home} from './Pages/Home/Home'
+import { About } from './Pages/About/About';
+import Contact from './Pages/Contact/Contact';
+import { LogIn } from './Pages/LogIn/LogIn';
+import { SignUp } from './Pages/SignUp/SignUp';
+import { Footer } from './Pages/Footer/Footer';
+
 
 function App() {
   return (
       <div className="App">
           <BrowserRouter>
-              <NavBar />
+              <Navbar />
               <main>
                   <Routes>
                       <Route path="/" element={<home />} />
-                      <Route path="/about" element={<about />} />
-                      <Route path="/contact" element={<contact />} />
-                      <Route path="/login" element={<logIn />} />
-                      <Route path="/signup" element={<signUp />} />
+                      <Route path="/About" element={<about />} />
+                      <Route path="/Contact" element={<contact />} />
+                      <Route path="/Login" element={<logIn />} />
+                      <Route path="/Signup" element={<signUp />} />
                       <Route path="/ClientDashboard" element={<dashBoard />} />
                       <Route path="/ClientDashboard" element={<dashBoard />} />
                       <Route path="/ClientDashboard" element={<dashBoard />} />

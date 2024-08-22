@@ -1,4 +1,4 @@
-export const signUp = () => {
+export const Footer = () => {
 
     return(<div>hello</div>);
 };
