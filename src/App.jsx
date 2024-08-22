@@ -9,8 +9,8 @@ import { SignUp } from './Pages/SignUp/SignUp';
 import { Footer } from './Pages/Footer/Footer';
 import {ClientDashboard} from './ClientComponents/ClientDashboard/ClientDashboard';
 import { ClientSignUp } from './ClientComponents/ClientSignUp/ClientSignUp';
-import { DocSignUp } from './DoctorComponents/DoctorSignUp/DocSignUp';
-import { ClientParams } from './ClientComponents/ClientParameters/ClientParams';
+import { DocSignUp } from './doctorComponents/doctorSignUp/docSignUp';
+import { ClientParams } from './clientComponents/ClientParameters/ClientParams';
 
 
 function App() {
