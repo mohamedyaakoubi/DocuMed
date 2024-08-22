@@ -1,4 +1,6 @@
 export const Footer = () => {
 
-    return(<div>footer</div>);
+    return(<footer style={{backgroundColor:"red"}}>
+        <center>Hello here footer</center>
+    </footer>);
 };
