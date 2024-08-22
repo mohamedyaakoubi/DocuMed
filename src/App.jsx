@@ -7,7 +7,11 @@ import {Contact} from './Pages/Contact/Contact';
 import { LogIn } from './Pages/LogIn/LogIn';
 import { SignUp } from './Pages/SignUp/SignUp';
 import { Footer } from './Pages/Footer/Footer';
-import {ClientDashboard} from './ClientComponents/ClientDashboard/ClientDashboard'
+import {ClientDashboard} from './ClientComponents/ClientDashboard/ClientDashboard';
+import { ClientSignUp } from './ClientComponents/ClientSignUp/ClientSignUp';
+import { DocSignUp } from './DoctorComponents/DoctorSignUp/DocSignUp';
+import { ClientParams } from './ClientComponents/ClientParameters/ClientParams';
+
 
 function App() {
   return (
@@ -22,6 +26,12 @@ function App() {
                       <Route path="/Login" element={<LogIn />} />
                       <Route path="/Signup" element={<SignUp />} />
                       <Route path="/ClientDashboard" element={<ClientDashboard />} />
+                      <Route path="/ClientSignUp" element={<ClientSignUp />} />
+                      <Route path="/DocSignUp" element={<DocSignUp />} />
+                      <Route path="/ClientParams" element={<ClientParams />} />
+                      <Route path="/ClientDashboard" element={<ClientDashboard />} />
+
+
                       <Route path="*" element={<Home />} />
                   </Routes>
               </main>

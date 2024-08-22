@@ -1,6 +1,17 @@
-export const docSignUp = () => {
+import React, { useState } from 'react';
+
+
+export const DocSignUp = () => {
+    
+    const [selectedOption, setSelectedOption] = useState('');
+
+  // Handle change in selection (arrow function)
+    const handleChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
 
     return(<>
+        
         <div>
         <nav style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', backgroundColor: 'antiquewhite' }}>
             <img src="c:/Users/GigaByte/Desktop/new project/3584597.jpg" alt="Logo" style={{ width: '50px' }} />
@@ -22,14 +33,24 @@ export const docSignUp = () => {
             <input type="text" /><br/>
             <label>Proof</label>
             <input type="text" /><br/>
-            
+            <label>code postal</label>
+            <input type="text" /><br/>
+            <label htmlFor="select-list">specialite</label>
+            <select id="select-list" value={selectedOption} onChange={handleChange}>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
+            <label>passs</label>
+            <input type="password" /><br/>
+            <label>re pass</label>
+            <input type="password" /><br/>
+            <h1>{selectedOption}</h1>
             <button>let's gooo</button>
             </div>
         </section>
         
-        <footer style={{ backgroundColor: 'aquamarine' }}>
-            <center>Hello here footer</center>
-        </footer>
+        
         </div>
 
 </>);
