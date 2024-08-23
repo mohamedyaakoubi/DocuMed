@@ -17,7 +17,7 @@ export const Pricing = () => {
                         <div className="col-md-6 col-lg-4 mb-30">
                             <div className="price-item text-center">
                                 <div className="price-top">
-                                    <h4>Personal</h4>
+                                    <h4>Session</h4>
                                     <h2 className="mb-0"><sup>$</sup>99</h2>
                                     <span className="text-capitalize">per year</span>
                                 </div>
@@ -55,7 +55,7 @@ export const Pricing = () => {
                         <div className="col-md-6 col-lg-4 mb-30">
                             <div className="price-item text-center popular">
                                 <div className="price-top">
-                                    <h4>Business</h4>
+                                    <h4>Monthly</h4>
                                     <h2 className="mb-0"><sup>$</sup>299</h2>
                                     <span className="text-capitalize">per year</span>
                                 </div>
@@ -93,7 +93,7 @@ export const Pricing = () => {
                         <div className="col-md-6 col-lg-4 mb-30">
                             <div className="price-item text-center">
                                 <div className="price-top">
-                                    <h4>Enterprise</h4>
+                                    <h4>Yearly</h4>
                                     <h2 className="mb-0"><sup>$</sup>399</h2>
                                     <span className="text-capitalize">per year</span>
                                 </div>
@@ -135,7 +135,7 @@ export const Pricing = () => {
                         <div className="col-md-6 col-lg-4 mb-30">
                             <div className="price-item text-center">
                                 <div className="price-top">
-                                    <h4>Personal</h4>
+                                    <h4>Session</h4>
                                     <h2 className="mb-0"><sup>$</sup>29</h2>
                                     <span className="text-capitalize">per month</span>
                                 </div>
@@ -173,7 +173,7 @@ export const Pricing = () => {
                         <div className="col-md-6 col-lg-4 mb-30">
                             <div className="price-item text-center popular">
                                 <div className="price-top">
-                                    <h4>Business</h4>
+                                    <h4>Monthly</h4>
                                     <h2 className="mb-0"><sup>$</sup>59</h2>
                                     <span className="text-capitalize">per month</span>
                                 </div>
