@@ -1,0 +1,87 @@
+/* Navbar.css */
+
+/* Existing styles */
+
+.navbar {
+    background-color: #333;
+    padding: 10px;
+}
+
+.navButtons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.navButton {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.navButton:hover {
+    background-color: #777;
+}
+
+.contentContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.statements {
+    flex: 1;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.statement {
+    margin-bottom: 10px;
+}
+
+.imageContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* New Services Section */
+.servicesSection {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.imageGroup {
+    display: flex; 
+    justify-content: space-between; /* Space between images */
+    align-items: center; 
+    gap: 5px; /* Reduced gap between images */
+    padding: 20px; /* Optional padding for spacing */
+}
+
+.imageItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heartImage, .calanderImage, .patientImage {
+    width: 50px; 
+    height: auto;
+}
+
+.askdoc {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    padding-left: 20px; /* Adjust padding as needed */
+}
+
+.askpatient {
+    background-color: aqua;
+}
