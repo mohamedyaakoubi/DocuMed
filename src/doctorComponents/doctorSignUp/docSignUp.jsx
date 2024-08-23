@@ -103,7 +103,7 @@ const DocSignUp = () => {
             <section  >
                 <div class="container , containerdiv" >
                     <form onSubmit={handleSubmit(submitData)} className="signup-form , container">
-                    <center><Form.Label ><p>Sign up</p></Form.Label></center><br/>
+                    <center><Form.Label ><p >Sign up</p></Form.Label></center><br/>
                         <Form.Label className='Form.Label'>Your name</Form.Label>
                         <Form.Control type="text" placeholder="Enter name" {...register('name')} />
                         {errors.name && <p className="error-message">{errors.name.message}</p>}
