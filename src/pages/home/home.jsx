@@ -10,31 +10,21 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 
 export const Home = () => {
-  return (
+  return  (
     <div>
-      <nav className="navbar">
-        <div className="navButtons">
-          <Button className="navButton">Home</Button>
-          <button className="navButton">Contact</button>
-          <button className="navButton">Login</button>
-          <button className="navButton">Sign Up</button>
-          <button className="navButton">Help</button>
-          
-        </div>
-      </nav>
-
       <div className="contentContainer">
         <div className="statements">
-          <div className="statement">Communicating with Doctors</div>
-          <div className="statement">Enhancing Accessibility and Convenience</div>
-          <div className="statement">Improving Patient Engagement and Compliance</div>
+          <p className="statement">Communicating with Doctors</p>
+          <p className="statement">Enhancing Accessibility and Convenience</p>
+          <p className="statement">Improving Patient Engagement and Compliance</p>
         </div>
 
+        <div>
         <div className="imageContainer">
           <img src={doc} alt="Document" className="docImage" />
         </div>
       </div>
-
+      </div>
       <div className="servicesSection">
         <h2>Our Services for You</h2>
       </div>
