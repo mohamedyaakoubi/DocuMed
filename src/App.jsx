@@ -14,6 +14,10 @@ import {ClientDashboard} from './ClientComponents/ClientDashboard/ClientDashboar
 import { ClientSignUp } from './ClientComponents/ClientSignUp/ClientSignUp';
 import DocSignUp from './DoctorComponents/DoctorSignUp/DocSignUp';
 import { ClientParams } from './ClientComponents/ClientParameters/ClientParams';
+
+import { ClientAppointments } from './ClientComponents/ClientAppointments/ClientAppoitnments';
+import {Appointments} from './ClientComponents/Appointments/Appointments.jsx';
+
 import DoctorParams from './DoctorComponents/DoctorParameters/DoctorParams';
 import { PatientRecord } from './DoctorComponents/DocPatientVisualization/PatientRecord';
 import { DocDashboard } from './DoctorComponents/DocDhashboard/DocDashboard';
@@ -21,9 +25,11 @@ import { DocInsertion } from './DoctorComponents/DocInertion/DocInsertion';
 
 
 
+
 function App() {
   return (
       <div className="App">
+        
           <BrowserRouter>
               <Navbar />
               <main>
@@ -37,11 +43,19 @@ function App() {
                       <Route path="/ClientSignUp" element={<ClientSignUp />} />
                       <Route path="/DocSignUp" element={<DocSignUp />} />
                       <Route path="/ClientParams" element={<ClientParams />} />
+
+                      <Route path="/ClientDashboard" element={<ClientDashboard />} />
+                      <Route path="/ClientAppointments" element={<ClientAppointments />} />
+                      <Route path="/Appointments" element={<Appointments />} />
+
+
+
                       <Route path="/DoctorParams" element={<DoctorParams />} />
                       <Route path="/PatientRecord/:patientId" element={<PatientRecord />} />
                       <Route path="/DocInsertion" element={<DocInsertion />} />
                       <Route path="/Docdashboard" element={<DocDashboard />} />
                       
+
 
 
                       <Route path="*" element={<Home />} />
