@@ -11,11 +11,13 @@ import {ClientDashboard} from './ClientComponents/ClientDashboard/ClientDashboar
 import { ClientSignUp } from './ClientComponents/ClientSignUp/ClientSignUp';
 import { DocSignUp } from './DoctorComponents/DoctorSignUp/DocSignUp';
 import { ClientParams } from './ClientComponents/ClientParameters/ClientParams';
-
+import { ClientAppointments } from './ClientComponents/ClientAppointments/ClientAppoitnments';
+import {Appointments} from './ClientComponents/Appointments/Appointments.jsx';
 
 function App() {
   return (
       <div className="App">
+        
           <BrowserRouter>
               <Navbar />
               <main>
@@ -30,6 +32,10 @@ function App() {
                       <Route path="/DocSignUp" element={<DocSignUp />} />
                       <Route path="/ClientParams" element={<ClientParams />} />
                       <Route path="/ClientDashboard" element={<ClientDashboard />} />
+                      <Route path="/ClientAppointments" element={<ClientAppointments />} />
+                      <Route path="/Appointments" element={<Appointments />} />
+
+
 
 
                       <Route path="*" element={<Home />} />
