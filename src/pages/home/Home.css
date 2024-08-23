@@ -1,0 +1,29 @@
+/* src/Home.css */
+
+/* Container for the image group */
+.imageGroup {
+  display: flex !important;           
+  justify-content: center; 
+  flex-direction: row;
+  gap: 20px;              
+}
+
+/* Individual image item */
+.imageItem {
+  display: flex;
+  flex-direction: column;  
+  align-items: center;     
+}
+
+/* Image styling */
+.imageItem img {
+  width: 100px;            
+  height: auto;            
+  margin-bottom: 10px;    
+}
+
+/* Text below the image */
+.imageItem p {
+  text-align: center;     
+  margin: 0;              
+}

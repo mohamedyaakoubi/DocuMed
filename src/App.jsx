@@ -1,12 +1,15 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Navbar } from './Pages/Navbar/Navbar';
-import { Home } from './Pages/Home/Home'
+import { Home } from './Pages/Home/Home';
 import { About } from './Pages/About/About';
 import Contact from './Pages/Contact/Contact';
 import { LogIn } from './Pages/LogIn/LogIn';
 import { SignUp } from './Pages/SignUp/SignUp';
 import { Footer } from './Pages/Footer/Footer';
+
+import {ClientDashboard} from './ClientComponents/ClientDashboard/ClientDashboard'
+import Navbar from './Pages/Navbar/Navbar'; 
+
 import {ClientDashboard} from './ClientComponents/ClientDashboard/ClientDashboard';
 import { ClientSignUp } from './ClientComponents/ClientSignUp/ClientSignUp';
 import DocSignUp from './DoctorComponents/DoctorSignUp/DocSignUp';
@@ -15,6 +18,7 @@ import DoctorParams from './DoctorComponents/DoctorParameters/DoctorParams';
 import { PatientRecord } from './DoctorComponents/DocPatientVisualization/PatientRecord';
 import { DocDashboard } from './DoctorComponents/DocDhashboard/DocDashboard';
 import { DocInsertion } from './DoctorComponents/DocInertion/DocInsertion';
+
 
 
 function App() {
@@ -27,7 +31,7 @@ function App() {
                       <Route path="/" element={<Home />} />
                       <Route path="/About" element={<About />} />
                       <Route path="/Contact" element={<Contact />} />
-                      <Route path="/Login" element={<LogIn />} />
+                      <Route path="/LogIn" element={<LogIn />} />
                       <Route path="/Signup" element={<SignUp />} />
                       <Route path="/ClientDashboard" element={<ClientDashboard />} />
                       <Route path="/ClientSignUp" element={<ClientSignUp />} />
