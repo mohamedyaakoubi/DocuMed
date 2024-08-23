@@ -20,6 +20,7 @@ export const LogIn = () => {
             // Sign in the user with Firebase Authentication
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
+            localStorage.setItem("user", JSON.stringify(user))
 
             // Check if user exists in the doctors collection
             const doctorsCollection = collection(db, 'doctors');

@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '../../Configs/firebase'; // Ensure this path is correct
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, doc } from 'firebase/firestore'; // Import updateDoc and doc
 
 const DocSignUp = () => {
     const navigate = useNavigate();
@@ -39,30 +39,36 @@ const DocSignUp = () => {
         resolver: yupResolver(userSchema),
     });
 
+    // Handle specialty change
+    const handleSpecialtyChange = (e) => {
+        setSelectedSpecialty(e.target.value);
+    };
+
     // Form submission
     const submitData = async (data) => {
         try {
             // Create user with Firebase Authentication
             const userCredentials = await createUserWithEmailAndPassword(auth, data.email, data.pass);
+            localStorage.setItem("user", JSON.stringify(userCredentials.user));
+            
             if (auth.currentUser) {
                 await updateProfile(auth.currentUser, { displayName: `${data.name} ${data.surname}` });
-                const authUser = {
-                    email: data.email,
-                    name: data.name,
-                    surname: data.surname,
-                    isAuth: true,
-                };
-                localStorage.setItem('auth', JSON.stringify(authUser));
-
-                // Add new doctor to Firestore
-                await addDoc(collection(db, 'doctors'), {
+                
+                // Add new doctor to Firestore without specifying docId initially
+                const docRef = await addDoc(collection(db, 'doctors'), {
                     docAddress: data.address,
-                    docId: userCredentials.user.uid,
                     email: data.email,
                     name: data.name,
                     surname: data.surname,
                     tel: data.tel,
+                    specialty: selectedSpecialty,
+                    role: "doctor",
                     verified: false, // Optional field
+                });
+                
+                // Update the document with the generated docId
+                await updateDoc(docRef, {
+                    docId: docRef.id
                 });
 
                 // Redirect to the dashboard
@@ -73,11 +79,7 @@ const DocSignUp = () => {
             setErrorMessage(err.message);
         }
     };
-
-    // Handle specialty change
-    const handleSpecialtyChange = (event) => {
-        setSelectedSpecialty(event.target.value);
-    };
+    
 
     return (
         <div>
@@ -117,8 +119,7 @@ const DocSignUp = () => {
                         <label>Specialty</label>
                         <select value={selectedSpecialty} onChange={handleSpecialtyChange} required>
                             <option value="" disabled>Specialty *</option>
-                            <option value="271">Allergist</option>
-	<option value="497">Anatomical Cytopathologist</option>
+                            <option value="497">Anatomical Cytopathologist</option>
 	<option value="57">Andrologist</option>
 	<option value="15">Anesthesiologist</option>
 	<option value="49">Angiologist</option>

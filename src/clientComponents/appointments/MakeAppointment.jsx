@@ -1,45 +1,60 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { db } from '../../Configs/firebase'; // Ensure this path is correct
 
 export const MakeAppointment = () => {
     const location = useLocation();
-    const { doctor } = location.state || {}; // Get doctor data from location state
+    const { doctor, patientId } = location.state || {}; // Get doctor and patient data from location state
     const navigate = useNavigate();
 
     const [appointmentDate, setAppointmentDate] = useState('');
     const [appointmentTime, setAppointmentTime] = useState('');
     const [message, setMessage] = useState('');
+    const [status] = useState('Pending Approval'); // Default status
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
+        if (!doctor || !patientId) {
+            alert('Doctor or patient information is missing.');
+            return;
+        }
+    
+        // Validate the date and time
+        if (!appointmentDate || !appointmentTime) {
+            alert('Please select both date and time for the appointment.');
+            return;
+        }
+    
+        console.log('Doctor ID for appointment:', doctor.id); // Debugging log
+    
         try {
-            const appointmentRef = collection(db, 'appointments');
+            const appointmentDue = new Date(`${appointmentDate}T${appointmentTime}`);
+    
+            const appointmentRef = collection(db, 'patientAppointments');
             await addDoc(appointmentRef, {
-                doctorId: doctor.id,
-                doctorName: doctor.name,
-                doctorSurname: doctor.surname,
-                doctorSpecialty: doctor.specialty,
-                address: doctor.address,
-                appointmentDate,
-                appointmentTime,
-                message,
-                status: 'pending',
-                timeDue: new Date(`${appointmentDate}T${appointmentTime}`).toISOString(), // Save timeDue as ISO string
+                appointmentDue: Timestamp.fromDate(appointmentDue),
+                appointmentId: Date.now().toString(),
+                docId: doctor.docId || '', // Ensure the doctor ID is included
+                docName: doctor.name || '', // Ensure default values if needed
+                docSurname: doctor.surname || '',
+                specialty: doctor.specialty || '',
+                message: message || '',
+                patientId: patientId || '',
+                status: status,
             });
-
+    
             alert('Appointment request submitted successfully!');
-            navigate('/Appointments'); // Redirect to Appointments page after submission
+            navigate('/Appointments');
         } catch (error) {
             console.error('Error requesting appointment:', error);
             alert('Failed to submit appointment request.');
         }
     };
 
-    if (!doctor) {
-        return <p>No doctor information available.</p>;
+    if (!doctor || !patientId) {
+        return <p>Doctor or patient information is missing.</p>;
     }
 
     return (
@@ -49,7 +64,7 @@ export const MakeAppointment = () => {
                 <img src="assets/hello.jpg" alt={doctor.name} width={100} height={100} />
                 <p><strong>Name:</strong> {doctor.name} {doctor.surname}</p>
                 <p><strong>Specialty:</strong> {doctor.specialty}</p>
-                <p><strong>Address:</strong> {doctor.address}</p>
+                <p><strong>Address:</strong> {doctor.docAddress || 'Not provided'}</p>
             </div>
             <form onSubmit={handleSubmit}>
                 <div>

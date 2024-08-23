@@ -9,6 +9,8 @@ export const ClientDashboard = () => {
     const [doctors, setDoctors] = useState([]);
     const navigate = useNavigate();
     const auth = getAuth();
+    const user = auth.currentUser;
+    const patientId = user ? user.uid : null; // Assuming patientId is the user's UID
 
     useEffect(() => {
         const fetchDoctors = async () => {
@@ -28,6 +30,7 @@ export const ClientDashboard = () => {
     const handleLogout = async () => {
         try {
             await signOut(auth);
+            localStorage.clear(); // Clear local storage on logout
             navigate('/Login'); // Redirect to login page after logout
         } catch (error) {
             console.error('Error signing out:', error);
@@ -62,7 +65,7 @@ export const ClientDashboard = () => {
                         <p style={{ display: "inline-block", margin: 0 }}>Specialty:</p>
                         <p style={{ display: "inline-block", margin: 0 }}>{doctor.specialty}</p><br />
                         <p>More info?</p>
-                        <Link to="/MakeAppointment" state={{ doctor }}>
+                        <Link to="/MakeAppointment" state={{ doctor, patientId }}>
                             <button>Make Appointment</button>
                         </Link>
                         <br />

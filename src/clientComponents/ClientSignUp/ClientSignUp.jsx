@@ -41,18 +41,20 @@ export const ClientSignUp = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       const user = userCredential.user;
 
+      localStorage.setItem("user", JSON.stringify(user))
+
       // Save additional user info to Firestore without the password
       const patientId = user.uid; // Use user ID as patient ID
       await setDoc(doc(db, 'patients', patientId), {
         name: formData.name,
         surname: formData.surname,
         email: formData.email,
-        phone: Number(formData.phone),
+        phone: formData.phone, // Ensure phone is a string in Firestore
         address: formData.address,
         city: formData.city,
         state: formData.state,
         zip: formData.zip,
-        patientId,
+        patientId, // Store the unique ID
       });
 
       // Redirect to ClientDashboard
@@ -118,6 +120,7 @@ export const ClientSignUp = () => {
               <Form.Label>City</Form.Label>
               <Form.Select name="city" value={formData.city} onChange={handleChange}>
                 <option>Choose...</option>
+                {/* Add all the options */}
                 <option value="tunis">Tunis</option>
                 <option value="sfax">Sfax</option>
                 <option value="sousse">Sousse</option>

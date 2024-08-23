@@ -1,90 +1,116 @@
 import { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
-import { signOut } from 'firebase/auth'; // Import signOut from Firebase
-import { db, auth } from '../../Configs/firebase'; // Make sure auth is imported
+import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { signOut } from 'firebase/auth';
+import { db, auth } from '../../Configs/firebase';
 import { useNavigate } from 'react-router-dom';
 
 export const DocDashboard = () => {
   const navigate = useNavigate();
-
-  const [patients, setPatients] = useState([]);
+  const [appointments, setAppointments] = useState([]);
+  const [patients, setPatients] = useState({});
   const [loading, setLoading] = useState(true);
+  const [docId, setDocId] = useState(null);
+  const currentUser = auth.currentUser;
 
-  // Fetch patients data
   useEffect(() => {
-    const fetchPatients = async () => {
-      setLoading(true); // Set loading to true before fetching data
+    const fetchDocIdAndAppointments = async () => {
+      setLoading(true);
 
       try {
-        const docDashboardRef = collection(db, 'docDashboard');
-        const querySnapshot = await getDocs(docDashboardRef);
+        if (currentUser) {
+          // Get the current user's email
+          const userEmail = currentUser.email;
 
-        const patientsList = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+          // Query Firestore to find the docId for the current user
+          const doctorsCollection = collection(db, 'doctors');
+          const q = query(doctorsCollection, where('email', '==', userEmail));
+          const querySnapshot = await getDocs(q);
 
-        setPatients(patientsList);
+          if (!querySnapshot.empty) {
+            const doctorDoc = querySnapshot.docs[0].data();
+            const doctorDocId = querySnapshot.docs[0].id;
+            setDocId(doctorDocId);
+
+            // Fetch appointments based on the found docId
+            const appointmentsCollection = collection(db, 'patientAppointments');
+            const appointmentsQuery = query(appointmentsCollection, where('docId', '==', doctorDocId));
+            const appointmentsSnapshot = await getDocs(appointmentsQuery);
+
+            const appointmentsList = appointmentsSnapshot.docs.map(doc => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+
+            setAppointments(appointmentsList);
+
+            // Fetch patient details
+            const patientIds = [...new Set(appointmentsList.map(app => app.patientId))];
+            const patientsCollection = collection(db, 'patientInfo');
+            const patientsQuery = query(patientsCollection, where('patientId', 'in', patientIds));
+            const patientsSnapshot = await getDocs(patientsQuery);
+
+            const patientsData = {};
+            patientsSnapshot.docs.forEach(doc => {
+              const data = doc.data();
+              patientsData[data.patientId] = data;
+            });
+
+            setPatients(patientsData);
+          } else {
+            console.error('Doctor not found');
+          }
+        }
       } catch (error) {
-        console.error('Error fetching patients:', error);
+        console.error('Error fetching doctor ID or appointments:', error);
       } finally {
-        setLoading(false); // Set loading to false after fetching data
+        setLoading(false);
       }
     };
 
-    fetchPatients();
-  }, []);
+    fetchDocIdAndAppointments();
+  }, [currentUser]);
 
-  // Handle patient action
-  const handleAction = async (patientId, action) => {
+  const handleAction = async (appointmentId, action) => {
     try {
-      // Query to find the document with the given patientId
-      const docDashboardRef = collection(db, 'docDashboard');
-      const q = query(docDashboardRef, where('patientId', '==', patientId));
-      const querySnapshot = await getDocs(q);
+      const appointmentDocRef = doc(db, 'patientAppointments', appointmentId);
 
-      if (!querySnapshot.empty) {
-        const patientDoc = querySnapshot.docs[0].ref; // Get document reference from querySnapshot
+      if (action === 'accept') {
+        await updateDoc(appointmentDocRef, { status: 'Accepted' });
+      } else if (action === 'reject') {
+        await updateDoc(appointmentDocRef, { status: 'Rejected' });
+      } else if (action === 'delay') {
+        await updateDoc(appointmentDocRef, { status: 'Delayed' });
+      }
 
-        if (action === 'accept') {
-          await updateDoc(patientDoc, { status: 'accepted' });
-        } else if (action === 'reject') {
-          await updateDoc(patientDoc, { status: 'rejected' });
-        } else if (action === 'delay') {
-          await updateDoc(patientDoc, { status: 'delayed' });
-        }
-
-        // Refresh patient list
-        const updatedQuerySnapshot = await getDocs(docDashboardRef); // Re-fetch the updated list
-        const updatedPatientsList = updatedQuerySnapshot.docs.map(doc => ({
+      // Refresh appointments list
+      if (docId) {
+        const updatedQuerySnapshot = await getDocs(query(collection(db, 'patientAppointments'), where('docId', '==', docId)));
+        const updatedAppointmentsList = updatedQuerySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
         }));
-        setPatients(updatedPatientsList);
-      } else {
-        console.error('Patient not found');
+        setAppointments(updatedAppointmentsList);
       }
     } catch (error) {
-      console.error('Error handling patient action:', error);
+      console.error('Error handling appointment action:', error);
     }
   };
 
-  // Handle logout
   const handleLogout = async () => {
     try {
-      await signOut(auth); // Sign out the user
-  
-      // Clear local storage and session cookies if applicable
-      localStorage.removeItem('user'); // Adjust based on your storage
-      sessionStorage.clear(); // Optionally clear session storage
-  
-      navigate('/Login'); // Redirect to login page after logout
-      window.location.reload(); // Refresh the page to ensure logout is effective
+      await signOut(auth);
+      localStorage.clear();
+      sessionStorage.clear();
+      navigate('/Login');
+      window.location.reload();
     } catch (error) {
       console.error('Error logging out:', error);
     }
   };
-  
+
+  const handleCardClick = (patientId) => {
+    navigate(`/PatientRecords/${patientId}`);
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -98,22 +124,29 @@ export const DocDashboard = () => {
       >
         Logout
       </button>
-      {patients.map(patient => (
-        <div
-          key={patient.id}
-          className="patient-card"
-          onClick={() => navigate(`/PatientRecord/${patient.patientId}`)} // Navigate to patient detail page
-        >
-          <h3>{patient.name} {patient.surname}</h3>
-          <p>Appointment Time: {new Date(patient.appointmentTime.seconds * 1000).toLocaleString()}</p>
-          <p>{patient.firstTime ? 'First Visit' : 'Returning Patient'}</p>
-          <div className="actions">
-            <button onClick={() => handleAction(patient.patientId, 'accept')}>Accept</button>
-            <button onClick={() => handleAction(patient.patientId, 'reject')}>Reject</button>
-            <button onClick={() => handleAction(patient.patientId, 'delay')}>Delay</button>
+      {appointments.map(appointment => {
+        const patient = patients[appointment.patientId] || {};
+        return (
+          <div
+            key={appointment.id}
+            className="appointment-card"
+            onClick={() => handleCardClick(appointment.patientId)}
+          >
+            <h3>{appointment.docName} {appointment.docSurname}</h3>
+            <p>Appointment Due: {new Date(appointment.appointmentDue.seconds * 1000).toLocaleString()}</p>
+            <p>Specialty: {appointment.specialty}</p>
+            <p>Message: {appointment.message}</p>
+            <p>Patient Name: {patient.name || 'N/A'} {patient.surname || 'N/A'}</p>
+            <p>Patient Age: {patient.age || 'N/A'}</p>
+            <p>Patient Gender: {patient.gender || 'N/A'}</p>
+            <div className="actions">
+              <button onClick={() => handleAction(appointment.id, 'accept')}>Accept</button>
+              <button onClick={() => handleAction(appointment.id, 'reject')}>Reject</button>
+              <button onClick={() => handleAction(appointment.id, 'delay')}>Delay</button>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

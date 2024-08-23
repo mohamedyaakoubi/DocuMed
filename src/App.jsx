@@ -14,7 +14,6 @@ import { ClientSignUp } from './ClientComponents/ClientSignUp/ClientSignUp';
 import DocSignUp from './DoctorComponents/DoctorSignUp/DocSignUp.jsx';
 import { ClientParams } from './ClientComponents/ClientParameters/ClientParams';
 
-import { ClientAppointments } from './ClientComponents/ClientAppointments/ClientAppoitnments.jsx';
 import {Appointments} from './ClientComponents/Appointments/Appointments.jsx';
 
 import DoctorParams from './DoctorComponents/DoctorParameters/DoctorParams';
@@ -45,7 +44,7 @@ function App() {
                       <Route path="/ClientParams" element={<ClientParams />} />
 
                       <Route path="/ClientDashboard" element={<ClientDashboard />} />
-                      <Route path="/ClientAppointments" element={<ClientAppointments />} />
+                     
                       <Route path="/Appointments" element={<Appointments />} />
 
 
