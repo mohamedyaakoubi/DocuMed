@@ -1,4 +1,11 @@
-export const Navbar = () => {
+import React from 'react'
+import 'bootstrap/dist/css/bootstrap.css';
 
-    return(<div>nav</div>);
-};
+
+function Navbar() {
+  return (
+    <div>Navbar</div>
+  )
+}
+
+export default Navbar
