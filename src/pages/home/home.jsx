@@ -1,18 +1,40 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import doc from '../Navbar/doc.jpeg';
 import heart from '../Navbar/heart.png';
-import calander from '../Navbar/calander.jpeg';  // Ensure this file exists
+import calander from '../Navbar/calander.jpeg';
 import helpdoc from '../Navbar/helpdoc.jpg';
 import patient from '../Navbar/patient.png';
 import pat from './pat.jpg';
+
 import calen from './calen.png'
 import './Home.css'
+=======
+import './Home.css';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 
 export const Home = () => {
+
   return  (
     <div>
+
+  const navigate = useNavigate(); // Initialize the navigate function
+
+  return (
+    <div>
+      <nav className="navbar">
+        <div className="navButtons">
+          <Button className="navButton">Home</Button>
+          <Button className="navButton" onClick={() => navigate('/Contact')}>Contact</Button>
+          <Button className="navButton" onClick={() => navigate('/Login')}>Login</Button>
+          <Button className="navButton" onClick={() => navigate('/SignUp')}>Sign Up</Button>
+          <Button className="navButton">Help</Button>
+        </div>
+      </nav>
+
+
       <div className="contentContainer">
         <div className="statements">
           <p className="statement">Communicating with Doctors</p>
