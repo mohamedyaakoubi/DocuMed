@@ -1,6 +1,6 @@
 import { createContext, useEffect, useContext } from 'react';
 
-import { auth, db } from '../config/firebase';
+import { auth, db } from '../Configs/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { getDocs, collection, where, query } from 'firebase/firestore';
 

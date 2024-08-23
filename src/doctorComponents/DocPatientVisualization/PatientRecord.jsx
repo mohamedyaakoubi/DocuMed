@@ -1,80 +1,108 @@
-import { db } from '../../Configs/firebase';
-import {
-	addDoc,
-	collection,
-	doc,
-	deleteDoc,
-	getDocs,
-	query,
-	where,
-	getDoc,
-} from 'firebase/firestore';
-
-import { useUser } from '../../Context/UserContext';
 import { useEffect, useState } from 'react';
+import { db } from '../../Configs/firebase';
+import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
+import { useParams, Link } from 'react-router-dom';
 
-export const DocDashboard = (props) => {
-	const userData = useUser();
+export const PatientRecord = () => {
+    const { patientId } = useParams();
+    const [patient, setPatient] = useState(null);
+    const [medicalHistory, setMedicalHistory] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-	const [patientToReject, setPatientToReject] = useState(null);
-    const [patientToAccept, setPatientToAccept] = useState(null);
-    const [patientToDelay, setPatientToDelay] = useState(null);
+    useEffect(() => {
+        const fetchPatientData = async () => {
+            setLoading(true);
 
-	const likesRef = collection(db, 'likes');
-	const thisBlogsLikes = query(likesRef, where('DocAppointmentID', '==', props.DocAppointment.id));
+            try {
+                // Fetch patient details
+                const patientRef = collection(db, 'patientInfo');
+                const patientQuery = query(patientRef, where('patientId', '==', patientId));
+                const patientDocs = await getDocs(patientQuery);
 
-	const hasUserLikedQuerry = query(
-		likesRef,
-		where('blogId', '==', props.blog.id),
-		where('userId', '==', userData.id)
-	);
+                if (patientDocs.empty) {
+                    console.error('Patient not found!');
+                    setPatient(null);
+                    setLoading(false);
+                    return;
+                }
 
-	useEffect(() => {
-		getDocs(thisBlogsLikes).then((data) => {
-			setLikesNumber(data.docs.length);
-		});
+                const patientDoc = patientDocs.docs[0];
+                setPatient(patientDoc.data());
 
-		getDocs(hasUserLikedQuerry).then((data) => {
-			if (data.docs.length === 0) {
-				setAlreadyLiked(false);
-			} else if (data.docs.length === 1) {
-				setAlreadyLiked(true);
-				setIdToDelete(data.docs[0].id);
-			}
-		});
-	}, []);
+                // Fetch medical history
+                const medicalHistoryRef = collection(db, 'patientRecord');
+                const historyQuery = query(
+                    medicalHistoryRef,
+                    where('patientId', '==', patientId),
+                    orderBy('timeAdded', 'desc')
+                );
 
-	const addLike = () => {
-		if (alreadyLiked === false) {
-			addDoc(likesRef, {
-				blogId: props.blog.id,
-				userId: userData.id,
-			}).then((doc) => {
-				setLikesNumber(likesNumber + 1);
-				setAlreadyLiked(true);
-				setIdToDelete(doc.id);
-			});
-		} else {
-			const likeDocument = doc(db, 'likes', idToDelete);
-			deleteDoc(likeDocument).then(() => {
-				setLikesNumber(likesNumber - 1);
-				setAlreadyLiked(false);
-			});
-		}
-	};
+                const querySnapshot = await getDocs(historyQuery);
+                console.log('Medical History Documents:', querySnapshot); // Debugging output
 
-	return (
-		<>
-			<h1>{props.blog.writer} says:</h1>
-			<h3>{props.blog.title}</h3>
-			<p>{props.blog.description}</p>
-			<button
-				style={{ background: alreadyLiked ? 'green' : 'grey' }}
-				onClick={addLike}
-			>
-				Like : {likesNumber}
-			</button>
-			<hr></hr>
-		</>
-	);
+                if (querySnapshot.empty) {
+                    console.log('No medical records found for this patient.');
+                }
+
+                const historyList = querySnapshot.docs.map(doc => doc.data()); // Get only the data, not IDs
+                console.log('Medical History Data:', historyList); // Debugging output
+
+                setMedicalHistory(historyList);
+            } catch (error) {
+                console.error('Error fetching patient data:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPatientData();
+    }, [patientId]);
+
+    if (loading) {
+        return <p>Loading patient information...</p>;
+    }
+
+    if (!patient) {
+        return <p>Patient not found.</p>;
+    }
+
+    return (
+        <>
+            <h1>{patient.name} {patient.surname}</h1>
+            <p><strong>Age:</strong> {patient.age}</p>
+            <p><strong>Gender:</strong> {patient.gender}</p>
+            <p><strong>ID:</strong> {patient.patientId}</p>
+
+            <h2>Medical History</h2>
+            {medicalHistory.length > 0 ? (
+                <ul>
+                    {medicalHistory.map((record, index) => (
+                        <li key={index}>
+                            <hr />
+                            <p><strong>Date:</strong> {record.timeAdded ? new Date(record.timeAdded.seconds * 1000).toLocaleString() : 'N/A'}</p>
+                            <p><strong>Doctor:</strong> Dr. {record.docName || 'N/A'} {record.docSurname || 'N/A'}</p>
+                            <p><strong>Diagnosis:</strong> {record.diagnosis || 'N/A'}</p>
+                            <p><strong>Treatment:</strong> {record.treatment || 'N/A'}</p>
+                            <p><strong>Description:</strong> {record.description || 'N/A'}</p>
+                            <p><strong>Remarks:</strong> {record.remarks || 'N/A'}</p>
+                            <p><strong>Specialty:</strong> {record.specialty || 'N/A'}</p>
+                            <p><strong>Doctor Address:</strong> {record.docAddress || 'N/A'}</p>
+                        </li>
+                        
+                    ))}
+                </ul>
+            ) : (
+                <p>No medical history available.</p>
+            )}
+
+            {/* Render the test component with the link to a test patient record */}
+            <SomeComponent />
+        </>
+    );
+};
+
+// Test Component to render a link to a specific patient record
+const SomeComponent = () => {
+    const testPatientId = '12345'; // example ID for testing
+    return <Link to={`/PatientRecord/${testPatientId}`}>View Test Patient Record</Link>;
 };

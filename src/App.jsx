@@ -3,14 +3,18 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from './Pages/Navbar/Navbar';
 import { Home } from './Pages/Home/Home'
 import { About } from './Pages/About/About';
-import {Contact} from './Pages/Contact/Contact';
+import Contact from './Pages/Contact/Contact';
 import { LogIn } from './Pages/LogIn/LogIn';
 import { SignUp } from './Pages/SignUp/SignUp';
 import { Footer } from './Pages/Footer/Footer';
 import {ClientDashboard} from './ClientComponents/ClientDashboard/ClientDashboard';
 import { ClientSignUp } from './ClientComponents/ClientSignUp/ClientSignUp';
-import { DocSignUp } from './doctorComponents/doctorSignUp/docSignUp';
-import { ClientParams } from './clientComponents/ClientParameters/ClientParams';
+import DocSignUp from './DoctorComponents/DoctorSignUp/DocSignUp';
+import { ClientParams } from './ClientComponents/ClientParameters/ClientParams';
+import DoctorParams from './DoctorComponents/DoctorParameters/DoctorParams';
+import { PatientRecord } from './DoctorComponents/DocPatientVisualization/PatientRecord';
+import { DocDashboard } from './DoctorComponents/DocDhashboard/DocDashboard';
+import { DocInsertion } from './DoctorComponents/DocInertion/DocInsertion';
 
 
 function App() {
@@ -29,7 +33,11 @@ function App() {
                       <Route path="/ClientSignUp" element={<ClientSignUp />} />
                       <Route path="/DocSignUp" element={<DocSignUp />} />
                       <Route path="/ClientParams" element={<ClientParams />} />
-                      <Route path="/ClientDashboard" element={<ClientDashboard />} />
+                      <Route path="/DoctorParams" element={<DoctorParams />} />
+                      <Route path="/PatientRecord/:patientId" element={<PatientRecord />} />
+                      <Route path="/DocInsertion" element={<DocInsertion />} />
+                      <Route path="/Docdashboard" element={<DocDashboard />} />
+                      
 
 
                       <Route path="*" element={<Home />} />
