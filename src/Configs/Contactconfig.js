@@ -1,0 +1,1 @@
+export const formspreeUrl = "https://formspree.io/f/mjkbypgq"; //make a formspree account and put your URL here
