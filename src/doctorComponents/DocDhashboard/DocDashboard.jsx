@@ -3,8 +3,9 @@ import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/fire
 import { signOut } from 'firebase/auth';
 import { db, auth } from '../../Configs/firebase';
 import { useNavigate } from 'react-router-dom';
-import './dashcss.css'
+import './dashcss.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
 export const DocDashboard = () => {
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
@@ -118,106 +119,82 @@ export const DocDashboard = () => {
   }
 
   return (
-    
     <div className="dashboard">
-
       <button 
         onClick={handleLogout} 
         style={{ marginBottom: '20px', padding: '10px', backgroundColor: 'red', color: 'white' }}
       >
         Logout
       </button>
-      {appointments.map(appointment => {
-        const patient = patients[appointment.patientId] || {};
-        return (
-          <div
-            key={appointment.id}
-            className="appointment-card"
-            onClick={() => handleCardClick(appointment.patientId)}
-          >
-            <h3>{appointment.docName} {appointment.docSurname}</h3>
-            <p>Appointment Due: {new Date(appointment.appointmentDue.seconds * 1000).toLocaleString()}</p>
-            <p>Specialty: {appointment.specialty}</p>
-            <p>Message: {appointment.message}</p>
-            <p>Patient Name: {patient.name || 'N/A'} {patient.surname || 'N/A'}</p>
-            <p>Patient Age: {patient.age || 'N/A'}</p>
-            <p>Patient Gender: {patient.gender || 'N/A'}</p>
-            <div className="actions">
-              <button onClick={() => handleAction(appointment.id, 'accept')}>Accept</button>
-              <button onClick={() => handleAction(appointment.id, 'reject')}>Reject</button>
-              <button onClick={() => handleAction(appointment.id, 'delay')}>Delay</button>
-            </div>
-          </div>
-        );
-      })}
 
-      
-      {patients.map(patient => (
-        <div
-          key={patient.id}
-          className="patient-card"
-          onClick={() => navigate(`/PatientRecord/${patient.patientId}`)} // Navigate to patient detail page
-        >
-          
-        
-        <div className='main--content'>
-          <div className='header--wrapper'>
-            <div className='header--title'>
+      <div className='main--content'>
+        <div className='header--wrapper'>
+          <div className='header--title'>
             <span>Primary</span>
             <h2>Dashboard</h2>
           </div>
           <div className='user--info'> 
             <div className='search--box'>
-            <i class="fas fa-search" ></i>
+              <i className="fas fa-search"></i>
               <input type='text' placeholder='Search'/>
             </div>
-            <img src="/assets/doctor.jpg" alt=''/>
-
+            <img src="/assets/doctor.jpg" alt='' />
           </div>
         </div>
+
         <div className='tabular--wrapper'>
-          <h3 className='main--title'>Today's Rendez vous</h3>
+          <h3 className='main--title'>Today's Appointments</h3>
           <div className='table-container'>
             <table>
               <thead>
                 <tr>
-                  <th >Name</th>
+                  <th>Name</th>
                   <th>Surname</th>
                   <th>Date</th>
-                  <th>Appontment type</th>
-                  
+                  <th>Appointment Type</th>
                   <th className='lined'>Accept</th>
-                  <th>Delete</th>
                   <th>Reject</th>
-
+                  <th>Delay</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>{patient.name}</td>
-                  <td>{patient.surname}</td>
-                  <td>{new Date(patient.appointmentTime.seconds * 1000).toLocaleString()}</td>
-                  <td>{patient.firstTime ? 'First Visit' : 'Returning Patient'}</td>
-                  
-                  <td ><button className='accept' onClick={() => handleAction(patient.patientId, 'accept')} >Accept</button></td>
-                  <td><button onClick={() => handleAction(patient.patientId, 'reject')} className='reject'>Reject</button></td>
-                  <td><button onClick={() => handleAction(patient.patientId, 'delay')} className='delete'>Delay</button></td>
-
-
-                </tr>
+                {appointments.map(appointment => {
+                  const patient = patients[appointment.patientId] || {};
+                  return (
+                    <tr key={appointment.id}>
+                      <td>{patient.name || 'N/A'}</td>
+                      <td>{patient.surname || 'N/A'}</td>
+                      <td>{new Date(appointment.appointmentDue.seconds * 1000).toLocaleString()}</td>
+                      <td>{appointment.specialty || 'N/A'}</td>
+                      <td><button className='accept' onClick={() => handleAction(appointment.id, 'accept')}>Accept</button></td>
+                      <td><button className='reject' onClick={() => handleAction(appointment.id, 'reject')}>Reject</button></td>
+                      <td><button className='delete' onClick={() => handleAction(appointment.id, 'delay')}>Delay</button></td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
         </div>
-        </div>
-          
-        </div>
-      ))}
-    
+      </div>
 
-
+      {/* Patient cards should be displayed here if intended */}
+      <div className="patient-cards-container">
+        {Object.values(patients).map(patient => (
+          <div
+            key={patient.patientId}
+            className="patient-card"
+            onClick={() => navigate(`/PatientRecord/${patient.patientId}`)} // Navigate to patient detail page
+          >
+            <div className='patient-info'>
+              <h4>{patient.name} {patient.surname}</h4>
+              <p>Age: {patient.age || 'N/A'}</p>
+              <p>Gender: {patient.gender || 'N/A'}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
-    
   );
 };
 
