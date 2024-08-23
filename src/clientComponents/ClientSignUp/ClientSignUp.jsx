@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../Configs/firebase'; // Adjust the path according to your project structure
+import '../../DoctorComponents/styleSignUp.css'
+import { Link } from 'react-router-dom';
 
 export const ClientSignUp = () => {
   const [formData, setFormData] = useState({
@@ -64,111 +66,113 @@ export const ClientSignUp = () => {
 
   return (
     <>
-      <div>
-        <nav style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', backgroundColor: 'antiquewhite' }}>
-          <img src="c:/Users/GigaByte/Desktop/new project/3584597.jpg" alt="Logo" style={{ width: '50px' }} />
-          <h5>Centre d'aide ?</h5>
-        </nav>
+    <div class="body">
+      <section  class="container">
+        <div class="container , containerdiv" >
 
-        <Form onSubmit={handleSubmit}>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
-          <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridName">
-              <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter name" name="name" value={formData.name} onChange={handleChange} />
+          <Form onSubmit={handleSubmit}>
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            
+            <Form.Label ><center>Sign up</center></Form.Label>
+              <Form.Group as={Col} controlId="formGridName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control type="text" placeholder="Enter name" name="name" value={formData.name} onChange={handleChange} />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="formGridSurname">
+                <Form.Label>Family name</Form.Label>
+                <Form.Control type="text" placeholder="Enter family name" name="surname" value={formData.surname} onChange={handleChange} />
+              </Form.Group>
+            
+
+            
+              <Form.Group as={Col} controlId="formGridEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" name="email" value={formData.email} onChange={handleChange} />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="formGridPhone">
+                <Form.Label>Phone number</Form.Label>
+                <Form.Control type="phone" placeholder="Enter phone number" name="phone" value={formData.phone} onChange={handleChange} />
+              </Form.Group>
+            
+
+            
+              <Form.Group as={Col} controlId="formGridPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Enter password" name="password" value={formData.password} onChange={handleChange} />
+              </Form.Group>
+
+              <Form.Group as={Col} controlId="formGridConfirmPassword">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control type="password" placeholder="Re-enter password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+              </Form.Group>
+            
+
+            <Form.Group className="mb-3" controlId="formGridAddress">
+              <Form.Label>Address</Form.Label>
+              <Form.Control placeholder="1234 Main St" name="address" value={formData.address} onChange={handleChange} />
             </Form.Group>
 
-            <Form.Group as={Col} controlId="formGridSurname">
-              <Form.Label>Family name</Form.Label>
-              <Form.Control type="text" placeholder="Enter family name" name="surname" value={formData.surname} onChange={handleChange} />
-            </Form.Group>
-          </Row>
+            
+              <Form.Group as={Col} controlId="formGridCity">
+                <Form.Label>City</Form.Label>
+                <Form.Select name="city" value={formData.city} onChange={handleChange}>
+                  <option>Choose...</option>
+                  <option value="tunis">Tunis</option>
+                  <option value="sfax">Sfax</option>
+                  <option value="sousse">Sousse</option>
+                  <option value="bizerte">Bizerte</option>
+                  <option value="gabes">Gabès</option>
+                  <option value="nabeul">Nabeul</option>
+                  <option value="kairouan">Kairouan</option>
+                  <option value="monastir">Monastir</option>
+                  <option value="mahdia">Mahdia</option>
+                  <option value="gafsa">Gafsa</option>
+                  <option value="tozeur">Tozeur</option>
+                  <option value="medenine">Médenine</option>
+                  <option value="kasserine">Kasserine</option>
+                  <option value="sidi-bouzid">Sidi Bouzid</option>
+                  <option value="tataouine">Tataouine</option>
+                  <option value="beja">Beja</option>
+                  <option value="jendouba">Jendouba</option>
+                  <option value="zaghouan">Zaghouan</option>
+                  <option value="siliana">Siliana</option>
+                  <option value="kebili">Kebili</option>
+                  <option value="ariana">Ariana</option>
+                  <option value="manouba">Manouba</option>
+                  <option value="ben-arous">Ben Arous</option>
+                  <option value="kef">Le Kef</option>
+                </Form.Select>
+              </Form.Group>
 
-          <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridEmail">
-              <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" name="email" value={formData.email} onChange={handleChange} />
-            </Form.Group>
+              <Form.Group as={Col} controlId="formGridState">
+                <Form.Label>State</Form.Label>
+                <Form.Control name="state" value={formData.state} onChange={handleChange} />
+              </Form.Group>
 
-            <Form.Group as={Col} controlId="formGridPhone">
-              <Form.Label>Phone number</Form.Label>
-              <Form.Control type="phone" placeholder="Enter phone number" name="phone" value={formData.phone} onChange={handleChange} />
-            </Form.Group>
-          </Row>
+              <Form.Group as={Col} controlId="formGridZip">
+                <Form.Label>Zip</Form.Label>
+                <Form.Control name="zip" value={formData.zip} onChange={handleChange} />
+              </Form.Group>
+            
 
-          <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Enter password" name="password" value={formData.password} onChange={handleChange} />
-            </Form.Group>
-
-            <Form.Group as={Col} controlId="formGridConfirmPassword">
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control type="password" placeholder="Re-enter password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
-            </Form.Group>
-          </Row>
-
-          <Form.Group className="mb-3" controlId="formGridAddress">
-            <Form.Label>Address</Form.Label>
-            <Form.Control placeholder="1234 Main St" name="address" value={formData.address} onChange={handleChange} />
-          </Form.Group>
-
-          <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridCity">
-              <Form.Label>City</Form.Label>
-              <Form.Select name="city" value={formData.city} onChange={handleChange}>
-                <option>Choose...</option>
-                <option value="tunis">Tunis</option>
-                <option value="sfax">Sfax</option>
-                <option value="sousse">Sousse</option>
-                <option value="bizerte">Bizerte</option>
-                <option value="gabes">Gabès</option>
-                <option value="nabeul">Nabeul</option>
-                <option value="kairouan">Kairouan</option>
-                <option value="monastir">Monastir</option>
-                <option value="mahdia">Mahdia</option>
-                <option value="gafsa">Gafsa</option>
-                <option value="tozeur">Tozeur</option>
-                <option value="medenine">Médenine</option>
-                <option value="kasserine">Kasserine</option>
-                <option value="sidi-bouzid">Sidi Bouzid</option>
-                <option value="tataouine">Tataouine</option>
-                <option value="beja">Beja</option>
-                <option value="jendouba">Jendouba</option>
-                <option value="zaghouan">Zaghouan</option>
-                <option value="siliana">Siliana</option>
-                <option value="kebili">Kebili</option>
-                <option value="ariana">Ariana</option>
-                <option value="manouba">Manouba</option>
-                <option value="ben-arous">Ben Arous</option>
-                <option value="kef">Le Kef</option>
-              </Form.Select>
+            <Form.Group className="mb-3" id="formGridCheckbox">
+              <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
 
-            <Form.Group as={Col} controlId="formGridState">
-              <Form.Label>State</Form.Label>
-              <Form.Control name="state" value={formData.state} onChange={handleChange} />
-            </Form.Group>
+            <Button variant="primary" type="submit" className='sign-up-btn, form-button'>
+              Sign Up
+            </Button>
+          </Form>
+        
+      
 
-            <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label>Zip</Form.Label>
-              <Form.Control name="zip" value={formData.zip} onChange={handleChange} />
-            </Form.Group>
-          </Row>
+          <Link to="/login" className="signin-link ">Already have an account?</Link>
 
-          <Form.Group className="mb-3" id="formGridCheckbox">
-            <Form.Check type="checkbox" label="Check me out" />
-          </Form.Group>
-
-          <Button variant="primary" type="submit">
-            Sign Up
-          </Button>
-        </Form>
-
-        <footer style={{ backgroundColor: 'aquamarine' }}>
-          <center>Already have an account? <a href="/Login">Login</a></center>
-        </footer>
-      </div>
+          </div>
+      </section>
+    </div>
     </>
   );
 };

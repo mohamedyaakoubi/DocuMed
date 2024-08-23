@@ -7,6 +7,7 @@ import { LogIn } from './Pages/LogIn/LogIn';
 import { SignUp } from './Pages/SignUp/SignUp';
 import { Footer } from './Pages/Footer/Footer';
 
+
 import {ClientDashboard} from './ClientComponents/ClientDashboard/ClientDashboard.jsx'
 import Navbar from './Pages/Navbar/Navbar'; 
 import { Pricing } from './Pages/Pricing/Pricing';
