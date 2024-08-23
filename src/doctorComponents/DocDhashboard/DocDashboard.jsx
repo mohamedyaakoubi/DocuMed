@@ -3,7 +3,8 @@ import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/fire
 import { signOut } from 'firebase/auth';
 import { db, auth } from '../../Configs/firebase';
 import { useNavigate } from 'react-router-dom';
-
+import './dashcss.css'
+import '@fortawesome/fontawesome-free/css/all.min.css';
 export const DocDashboard = () => {
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
@@ -117,7 +118,9 @@ export const DocDashboard = () => {
   }
 
   return (
+    
     <div className="dashboard">
+
       <button 
         onClick={handleLogout} 
         style={{ marginBottom: '20px', padding: '10px', backgroundColor: 'red', color: 'white' }}
@@ -147,7 +150,74 @@ export const DocDashboard = () => {
           </div>
         );
       })}
+
+      
+      {patients.map(patient => (
+        <div
+          key={patient.id}
+          className="patient-card"
+          onClick={() => navigate(`/PatientRecord/${patient.patientId}`)} // Navigate to patient detail page
+        >
+          
+        
+        <div className='main--content'>
+          <div className='header--wrapper'>
+            <div className='header--title'>
+            <span>Primary</span>
+            <h2>Dashboard</h2>
+          </div>
+          <div className='user--info'> 
+            <div className='search--box'>
+            <i class="fas fa-search" ></i>
+              <input type='text' placeholder='Search'/>
+            </div>
+            <img src="/assets/doctor.jpg" alt=''/>
+
+          </div>
+        </div>
+        <div className='tabular--wrapper'>
+          <h3 className='main--title'>Today's Rendez vous</h3>
+          <div className='table-container'>
+            <table>
+              <thead>
+                <tr>
+                  <th >Name</th>
+                  <th>Surname</th>
+                  <th>Date</th>
+                  <th>Appontment type</th>
+                  
+                  <th className='lined'>Accept</th>
+                  <th>Delete</th>
+                  <th>Reject</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{patient.name}</td>
+                  <td>{patient.surname}</td>
+                  <td>{new Date(patient.appointmentTime.seconds * 1000).toLocaleString()}</td>
+                  <td>{patient.firstTime ? 'First Visit' : 'Returning Patient'}</td>
+                  
+                  <td ><button className='accept' onClick={() => handleAction(patient.patientId, 'accept')} >Accept</button></td>
+                  <td><button onClick={() => handleAction(patient.patientId, 'reject')} className='reject'>Reject</button></td>
+                  <td><button onClick={() => handleAction(patient.patientId, 'delay')} className='delete'>Delay</button></td>
+
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+          
+        </div>
+      ))}
+    
+
+
     </div>
+    
   );
 };
 
