@@ -9,7 +9,6 @@ export const SignUp = () => {
       <nav style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', backgroundColor: 'antiquewhite' }}>
         <img src="c:/Users/GigaByte/Desktop/new project/3584597.jpg" alt="Logo" style={{ width: '50px' }} />
         <h5>Centre d'aide ?</h5>
-        <button>Let's Connect</button>
       </nav>
       
       <section style={{ backgroundColor: 'blue', width: '100%', height: '87vh', marginTop: '-20px' }}>
