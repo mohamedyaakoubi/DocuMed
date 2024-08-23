@@ -9,6 +9,7 @@ import { Footer } from './Pages/Footer/Footer';
 
 import {ClientDashboard} from './ClientComponents/ClientDashboard/ClientDashboard.jsx'
 import Navbar from './Pages/Navbar/Navbar'; 
+import { Pricing } from './Pages/Pricing/Pricing';
 
 import { ClientSignUp } from './ClientComponents/ClientSignUp/ClientSignUp';
 import DocSignUp from './DoctorComponents/DoctorSignUp/DocSignUp.jsx';
@@ -39,6 +40,7 @@ function App() {
                       <Route path="/Contact" element={<Contact />} />
                       <Route path="/LogIn" element={<LogIn />} />
                       <Route path="/Signup" element={<SignUp />} />
+                      <Route path="/pricing" element={<Pricing />} />
                       <Route path="/ClientDashboard" element={<ClientDashboard />} />
                       <Route path="/ClientSignUp" element={<ClientSignUp />} />
                       <Route path="/DocSignUp" element={<DocSignUp />} />
@@ -62,6 +64,7 @@ function App() {
                       <Route path="*" element={<Home />} />
                   </Routes>
               </main>
+              
               <Footer />
           </BrowserRouter>
       </div>

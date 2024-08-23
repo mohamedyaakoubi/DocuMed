@@ -6,11 +6,20 @@ import calander from '../Navbar/calander.jpeg';
 import helpdoc from '../Navbar/helpdoc.jpg';
 import patient from '../Navbar/patient.png';
 import pat from './pat.jpg';
+
+import calen from './calen.png'
+import './Home.css'
+=======
 import './Home.css';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 
 export const Home = () => {
+
+  return  (
+    <div>
+
   const navigate = useNavigate(); // Initialize the navigate function
 
   return (
@@ -25,18 +34,20 @@ export const Home = () => {
         </div>
       </nav>
 
+
       <div className="contentContainer">
         <div className="statements">
-          <div className="statement">Communicating with Doctors</div>
-          <div className="statement">Enhancing Accessibility and Convenience</div>
-          <div className="statement">Improving Patient Engagement and Compliance</div>
+          <p className="statement">Communicating with Doctors</p>
+          <p className="statement">Enhancing Accessibility and Convenience</p>
+          <p className="statement">Improving Patient Engagement and Compliance</p>
         </div>
 
+        <div>
         <div className="imageContainer">
           <img src={doc} alt="Document" className="docImage" />
         </div>
       </div>
-
+      </div>
       <div className="servicesSection">
         <h2>Our Services for You</h2>
       </div>
@@ -47,7 +58,7 @@ export const Home = () => {
           <p>desc here</p>
         </div>
         <div className="imageItem">
-          <img src={calander} alt="Calendar" className="calanderImage" />
+          <img src={calen} alt="Calendar" className="calanderImage" />
           <p>desc here</p>
         </div>
         <div className="imageItem">
@@ -59,13 +70,13 @@ export const Home = () => {
       <div className="askdoc">
         <h1>Are you a doctor?</h1>
         <img src={helpdoc} alt="Help Document" className="docImage" />
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nobis quae voluptate atque delectus! Et voluptates exercitationem illo, excepturi quibusdam sit dolore adipisci nobis, doloribus quae maxime fugit minus consequuntur?</p>
+        <p>All communications, including appointment reminders, prescriptions, and follow-up instructions, are stored digitally. This helps in maintaining a comprehensive record of patient interactions and can be easily accessed when needed.</p>
       </div>
 
       <div className="askpatient">
         <h1>Are you a patient?</h1>
         <img src={pat} alt="pat" className="pat" />
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo repudiandae, totam optio ipsa illum aliquam animi, impedit soluta quia distinctio dolorem fugiat quibusdam quidem possimus iste ducimus odio ab numquam.</p>
+        <p>Patients can actively participate in their healthcare by asking questions, tracking their symptoms, and receiving educational materials. This fosters a more collaborative approach to health management.</p>
       </div>
     </div>
   );
