@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/firestore';
-import { db } from '../../Configs/firebase'; // Adjust the path according to your project structure
+import { collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
+import { signOut } from 'firebase/auth'; // Import signOut from Firebase
+import { db, auth } from '../../Configs/firebase'; // Make sure auth is imported
 import { useNavigate } from 'react-router-dom';
 
 export const DocDashboard = () => {
@@ -22,7 +23,7 @@ export const DocDashboard = () => {
           id: doc.id,
           ...doc.data(),
         }));
-        
+
         setPatients(patientsList);
       } catch (error) {
         console.error('Error fetching patients:', error);
@@ -68,12 +69,35 @@ export const DocDashboard = () => {
     }
   };
 
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Sign out the user
+  
+      // Clear local storage and session cookies if applicable
+      localStorage.removeItem('user'); // Adjust based on your storage
+      sessionStorage.clear(); // Optionally clear session storage
+  
+      navigate('/Login'); // Redirect to login page after logout
+      window.location.reload(); // Refresh the page to ensure logout is effective
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+  
+
   if (loading) {
     return <p>Loading...</p>;
   }
 
   return (
     <div className="dashboard">
+      <button 
+        onClick={handleLogout} 
+        style={{ marginBottom: '20px', padding: '10px', backgroundColor: 'red', color: 'white' }}
+      >
+        Logout
+      </button>
       {patients.map(patient => (
         <div
           key={patient.id}
@@ -93,3 +117,5 @@ export const DocDashboard = () => {
     </div>
   );
 };
+
+export default DocDashboard;
