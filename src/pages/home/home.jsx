@@ -9,16 +9,12 @@ import pat from './pat.jpg';
 
 import calen from './calen.png'
 import './Home.css'
-=======
 import './Home.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 
 export const Home = () => {
-
-  return  (
-    <div>
 
   const navigate = useNavigate(); // Initialize the navigate function
 
