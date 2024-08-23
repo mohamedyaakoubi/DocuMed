@@ -1,129 +1,76 @@
+import React, { useState, useEffect } from 'react';
 import { CiSearch } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from 'react-router-dom';
+import { collection, getDocs } from 'firebase/firestore';
+import { getAuth, signOut } from 'firebase/auth';
+import { db } from '../../Configs/firebase'; // Ensure this path is correct
 
 export const ClientDashboard = () => {
+    const [doctors, setDoctors] = useState([]);
+    const navigate = useNavigate();
+    const auth = getAuth();
 
-    return(<>
-    <div style={{border: "solid black 1px"}}>
+    useEffect(() => {
+        const fetchDoctors = async () => {
+            try {
+                const doctorsCollection = collection(db, 'doctors');
+                const doctorSnapshot = await getDocs(doctorsCollection);
+                const doctorList = doctorSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setDoctors(doctorList);
+            } catch (error) {
+                console.error('Error fetching doctors:', error);
+            }
+        };
 
-    <CiSearch />
-    <input
-        type="text"
-        className="form-control empty"
-        id="iconified"
-      />
-      <button>research</button>
+        fetchDoctors();
+    }, []);
 
-    </div> 
-        <h2>Search for Yoyr medecin</h2>
-        <div style={{display:"grid",gridTemplateColumns: "auto auto auto " }}>
-        
-            <div style={{backgroundColor:"blue", width:"50%", height:"40%" }}>
-                <img width={50} height={50} src="assets/hello.jpg"/>
-                <br/>
-                <span style={{display: "inline-block"}}><p style={{ display: "inline-block", margin: 0 }}>name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>abdoo</p></span><br/>
+    const handleLogout = async () => {
+        try {
+            await signOut(auth);
+            navigate('/Login'); // Redirect to login page after logout
+        } catch (error) {
+            console.error('Error signing out:', error);
+        }
+    };
 
-                <p style={{ display: "inline-block", margin: 0 }}>family name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>3bdili</p><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>specialite :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>dentiste</p><br/>
-
-                <p>plus d'info ? </p>
-                <button Link to="/Appointments.jsx"> take rende vous</button>
-                <br/>
+    return (
+        <>
+            <div style={{ border: "solid black 1px", padding: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <CiSearch />
+                <input
+                    type="text"
+                    className="form-control empty"
+                    id="iconified"
+                    placeholder="Search for doctors"
+                />
+                <button>Search</button>
+                <button onClick={handleLogout}>Logout</button>
             </div>
-            <div style={{backgroundColor:"blue", width:"50%" ,height:"40%" }}>
-                <img width={50} height={50} src="assets/hello.jpg"/>
-                <br/>
-                <span style={{display: "inline-block"}}><p style={{ display: "inline-block", margin: 0 }}>name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>abdoo</p></span><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>family name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>3bdili</p><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>specialite :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>dentiste</p><br/>
-
-                <p>plus d'info ? </p>
-                <button>take rende vous</button>
-                <br/>
+            <h2>Search for Your Doctor</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem" }}>
+                {doctors.map(doctor => (
+                    <div key={doctor.id} style={{ backgroundColor: "blue", padding: "1rem", borderRadius: "8px" }}>
+                        <img src="assets/hello.jpg" alt={doctor.name} width={50} height={50} />
+                        <br />
+                        <span style={{ display: "inline-block" }}>
+                            <p style={{ display: "inline-block", margin: 0 }}>Name:</p>
+                            <p style={{ display: "inline-block", margin: 0 }}>{doctor.name}</p>
+                        </span><br />
+                        <p style={{ display: "inline-block", margin: 0 }}>Surname:</p>
+                        <p style={{ display: "inline-block", margin: 0 }}>{doctor.surname}</p><br />
+                        <p style={{ display: "inline-block", margin: 0 }}>Specialty:</p>
+                        <p style={{ display: "inline-block", margin: 0 }}>{doctor.specialty}</p><br />
+                        <p>More info?</p>
+                        <Link to="/MakeAppointment" state={{ doctor }}>
+                            <button>Make Appointment</button>
+                        </Link>
+                        <br />
+                    </div>
+                ))}
             </div>
-            <div>
-            <div style={{backgroundColor:"blue", width:"50%", height:"40%",  }}>
-                <img width={50} height={50} src="assets/hello.jpg"/>
-                <br/>
-                <span style={{display: "inline-block"}}><p style={{ display: "inline-block", margin: 0 }}>name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>abdoo</p></span><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>family name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>3bdili</p><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>specialite :</p>
-    x             <p style={{ display: "inline-block", margin: 0 }}>dentiste</p><br/>
-
-                <p>plus d'info ? </p>
-                <button>take rende vous</button>
-                <br/>
-            </div>
-
-            //
-            <div style={{backgroundColor:"blue", width:"50%", height:"40%" }}>
-                <img width={50} height={50} src="assets/hello.jpg"/>
-                <br/>
-                <span style={{display: "inline-block"}}><p style={{ display: "inline-block", margin: 0 }}>name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>abdoo</p></span><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>family name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>3bdili</p><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>specialite :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>dentiste</p><br/>
-
-                <p>plus d'info ? </p>
-                <button>take rende vous</button>
-                <br/>
-            </div>
-            <div style={{backgroundColor:"blue", width:"50%" ,height:"40%" }}>
-                <img width={50} height={50} src="assets/hello.jpg"/>
-                <br/>
-                <span style={{display: "inline-block"}}><p style={{ display: "inline-block", margin: 0 }}>name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>abdoo</p></span><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>family name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>3bdili</p><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>specialite :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>dentiste</p><br/>
-
-                <p>plus d'info ? </p>
-                <button>take rende vous</button>
-                <br/>
-            </div>
-            <div>
-            <div style={{backgroundColor:"blue", width:"50%", height:"40%",  }}>
-                <img width={50} height={50} src="assets/hello.jpg"/>
-                <br/>
-                <span style={{display: "inline-block"}}><p style={{ display: "inline-block", margin: 0 }}>name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>abdoo</p></span><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>family name :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>3bdili</p><br/>
-
-                <p style={{ display: "inline-block", margin: 0 }}>specialite :</p>
-                <p style={{ display: "inline-block", margin: 0 }}>dentiste</p><br/>
-
-                <p>plus d'info ? </p>
-                <button>take rende vous</button>
-                <br/>
-            </div>
-            </div>
-        </div>
-        
-
-
-    </div>
-    
-    </>)
+        </>
+    );
 };
+
+export default ClientDashboard;
