@@ -168,7 +168,7 @@ export const PatientRecord = () => {
             class="container , containerdiv"
             style={{marginTop:'-500px', display: 'flex', flexDirection: 'column'}}
         >
-            
+            <h2>Medical History</h2>
                 <textarea class="form-control" placeholder="Description" id="floatingTextarea2" ></textarea>
                 
             
@@ -176,51 +176,52 @@ export const PatientRecord = () => {
             <Form.Control className='inputss'
                 
                 type="text"
-                placeholder={"Date: +" + 'record.docName' || 'N/A'}
+                placeholder={"Date: 24/08/2024 01:30:19" }
                 disabled
             />
+            
             <Form.Control className='inputss'
 
                 type="text"
-                placeholder="Doctor: "
+                placeholder="Doctor: Dr. koussay Hamdi"
                 disabled
             />
             <Form.Control className='inputss'
       type="text"
-                placeholder="Diagnosis: "
+                placeholder="Diagnosis: N/A"
                 disabled
             />
             <Form.Control className='inputss'
                 
 
                 type="text"
-                placeholder="Treatment: "
+                placeholder="Treatment:  Doliprane"
                 disabled
             />
             <Form.Control className='inputss'
                 
                 
                 type="text"
-                placeholder="Remarks: "
+                placeholder="Remarks:  You need to relax 10 days"
                 disabled
             />
             <Form.Control className='inputss'
                 
                 type="text"
-                placeholder="Specialty: "
+                placeholder="Specialty:  Psychology"
                 disabled
             />
             <Form.Control className='inputss'
                 
                 type="text"
-                placeholder="Doctor Address: "
+                placeholder="Doctor Address:  Tunis, Zahra"
                 disabled
             />
             
             
         </form>
         </div>
-        --------------
+    
             
             <h2>Medical History</h2>
             {medicalHistory.length > 0 ? (
@@ -228,7 +229,7 @@ export const PatientRecord = () => {
                     {medicalHistory.map((record, index) => (
                         <li key={index}>
                             <hr />
-                            <p><strong>Date:</strong> {record.timeAdded ? new Date(record.timeAdded.seconds * 1000).toLocaleString() : 'N/A'}</p>
+                            <p><strong>Date: </strong> {record.timeAdded ? new Date(record.timeAdded.seconds * 1000).toLocaleString() : 'N/A'}</p>
                             <p><strong>Doctor:</strong> Dr. {record.docName || 'N/A'} {record.docSurname || 'N/A'}</p>
                             <p><strong>Diagnosis:</strong> {record.diagnosis || 'N/A'}</p>
                             <p><strong>Treatment:</strong> {record.treatment || 'N/A'}</p>
