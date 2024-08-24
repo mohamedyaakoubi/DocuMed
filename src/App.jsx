@@ -18,6 +18,13 @@ import { ClientParams } from './ClientComponents/ClientParameters/ClientParams';
 
 import {Appointments} from './ClientComponents/appointments/appointments';
 
+
+import DoctorParams from './DoctorComponents/DoctorParameters/DoctorParams';
+import { PatientRecord } from './DoctorComponents/DocPatientVisualization/PatientRecord';
+import { DocDashboard } from './DoctorComponents/DocDhashboard/DocDashboard';
+import DocInsertion from './DoctorComponents/DocInertion/DocInsertion.jsx';
+import MakeAppointment from './ClientComponents/Appointments/MakeAppointment.jsx';
+
 import DoctorParams from './doctorComponents/doctorParameters/DoctorParams';
 import { PatientRecord } from './doctorComponents/DocPatientVisualization/PatientRecord';
 import { DocDashboard } from './doctorComponents/DocDhashboard/DocDashboard';
@@ -25,10 +32,11 @@ import { DocInsertion } from './doctorComponents/DocInertion/DocInsertion';
 import MakeAppointment from './ClientComponents/appointments/MakeAppointment.jsx';
 
 
-
+import {UserProvider} from './Context/UserContext.jsx'
 
 function App() {
   return (
+    <UserProvider>
       <div className="App">
         
           <BrowserRouter>
@@ -68,6 +76,7 @@ function App() {
               <Footer />
           </BrowserRouter>
       </div>
+      </UserProvider>
   );
 }
 
