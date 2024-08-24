@@ -135,6 +135,7 @@ const DocSignUp = () => {
                         <select value={selectedSpecialty} onChange={handleSpecialtyChange} required>
                             <option value="" disabled>Specialty *</option>
 
+
                             <option value="497">Anatomical Cytopathologist</option>
                             <option value="57">Andrologist</option>
                             <option value="15">Anesthesiologist</option>
@@ -225,6 +226,7 @@ const DocSignUp = () => {
                             <option value="61">Specialist in Forensic Medicine and Medical Expertise</option>
                             <option value="284">Specialist in Physical Medicine and Rehabilitation</option>
                             <option value="25">Stomatologist</option>
+
 
                             <option value="271">Allergist</option>
                             <option value="497">Anatomical Cytopathologist</option>
@@ -317,7 +319,8 @@ const DocSignUp = () => {
                             <option value="61">Specialist in Forensic Medicine and Medical Expertise</option>
                             <option value="284">Specialist in Physical Medicine and Rehabilitation</option>
                             <option value="25">Stomatologist</option>
-                        </select><br/>
+                        </select>
+                        <br/>
                         <Form.Group controlId="formFileMultiple" className="mb-3">
         <Form.Label className='Form.Label'>Proof</Form.Label>
         <Form.Control type="file" multiple />
