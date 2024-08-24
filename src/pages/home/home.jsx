@@ -11,9 +11,6 @@ import calen from './calen.png'
 import './Home.css'
 
 
-import './Home.css';
-
-
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
 
