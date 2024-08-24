@@ -4,7 +4,6 @@ import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
-import { useParams, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';

@@ -10,8 +10,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '../../Configs/firebase'; // Ensure this path is correct
 import { collection, addDoc, updateDoc, doc } from 'firebase/firestore'; // Import updateDoc and doc
+import '../styleSignUp.css';
 
-import '../styleSignUp.css'
 const DocSignUp = () => {
     const [formData, setFormData] = useState({
         name: '',
