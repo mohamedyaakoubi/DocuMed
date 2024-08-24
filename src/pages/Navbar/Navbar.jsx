@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { Link } from 'react-router-dom';
+
+import './Navbar.css'
+
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 // import { useUser } from '../../Context/UserContext';
+
 
 const Navbar = () => {
   const [userRole, setUserRole] = useState(null);

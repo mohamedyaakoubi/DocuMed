@@ -119,6 +119,7 @@ p{
   cursor: pointer;
   transition: all 0.2s ease;
   background: rgb(4, 90, 240);
+  border-radius: 50px;
 }
 .form-button:hover {
   background: rgb(2, 50, 132);
@@ -134,4 +135,14 @@ p{
 }
 .sign-up-btn{
     margin-top: 20px ;
+}
+
+.inputss{
+  margin-top: 10px;
+  
+}
+.chekini{
+  margin-top: 25px;
+  margin-right: 10px;
+  
 }
