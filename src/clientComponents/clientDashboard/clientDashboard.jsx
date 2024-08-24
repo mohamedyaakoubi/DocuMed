@@ -53,8 +53,8 @@ export const ClientDashboard = () => {
             <h2>Search for Your Doctor</h2>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem" }}>
                 {doctors.map(doctor => (
-                    <div key={doctor.id} style={{ backgroundColor: "blue", padding: "1rem", borderRadius: "8px" }}>
-                        <img src="assets/hello.jpg" alt={doctor.name} width={50} height={50} />
+                    <div key={doctor.id} style={{ backgroundColor: "#00b5ec", padding: "1rem", borderRadius: "8px" }}>
+                        <img src="assets/hello.jpg" alt={doctor.name} width={50} height={50} style={{borderRadius:'50%', marginBottom:"20px"}}/>
                         <br />
                         <span style={{ display: "inline-block" }}>
                             <p style={{ display: "inline-block", margin: 0 }}>Name:</p>
@@ -66,7 +66,7 @@ export const ClientDashboard = () => {
                         <p style={{ display: "inline-block", margin: 0 }}>{doctor.specialty}</p><br />
                         <p>More info?</p>
                         <Link to="/MakeAppointment" state={{ doctor, patientId }}>
-                            <button>Make Appointment</button>
+                            <button style={{borderRadius:'20px', marginBottom:"20px"}}>Make Appointment</button>
                         </Link>
                         <br />
                     </div>

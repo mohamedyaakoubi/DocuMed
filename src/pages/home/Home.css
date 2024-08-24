@@ -1,5 +1,5 @@
 body {
-  background-color: #f5f5f5; 
+  background-color: antiquewhite; 
 }
 
 .imageGroup {
@@ -18,15 +18,18 @@ body {
 }
 
 .imageItem img {
-  width: 200px;            
+  width: 100px;            
   height: auto;            
-  margin-bottom: 10px;    
+  margin-bottom: 0; 
+  margin-left: 50px;   
 }
 
 .imageItem p {
-  text-align: center;    
-  margin: 0;     
-  padding-left: 1;         
+  text-align: center;      
+  padding-left: 1; 
+  margin-left: 50px;   
+
+
 }
 
 .contentContainer {
@@ -40,10 +43,50 @@ body {
 }
 
 .askdoc, .askpatient {
-  background-color: #e3f2fd; 
+  background-color:#e3effd; 
   padding: 20px; 
   border-radius: 8px; 
   margin: 20px 0; 
+  
 
 }
+.statement1{
+  font-size: 2rem;
+  font-weight: 600;
+  
+}
+.statement2{
+  font-size: 1.2rem;
+  font-weight: 600;
+  
+}
+.statement3{
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: 600px;
+  
+}
+.all{
+ 
+  background-color: aqua;
+  margin-top: -20px ;
+}
+.servicesSection{
+  padding-top: 30px;
+  margin-bottom: 60px;
+  text-align: center;
+}
 
+.alignili{
+  text-align: left;
+  width: 600px;
+  height: 18rem;
+  padding-top: -30px;
+}
+.docImage{
+  float: right;
+  margin-top: -100px;
+}
+.areu{
+  height: 80px;
+}
