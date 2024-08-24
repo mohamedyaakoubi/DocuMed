@@ -28,6 +28,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    text-align: left;
     padding: 20px;
 }
 
@@ -36,10 +37,12 @@
     display: flex;
     flex-direction: column; 
     align-items: center; 
+    padding-left: 50px;
 }
 
 .statement {
     margin-bottom: 10px;
+    text-align: left;
 }
 
 .imageContainer {
@@ -55,13 +58,21 @@
     font-size: 1.5rem;
     font-weight: bold;
 }
+.servicesSection1 {
+    text-align: center;
+    /* margin: 20px 0; */
+    padding-top: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #e3effd;
+}
 
 .imageGroup {
     display: flex; 
     justify-content: space-between; /* Space between images */
     align-items: center; 
-    gap: 5px; /* Reduced gap between images */
-    padding: 20px; /* Optional padding for spacing */
+    gap: 8px; /* Reduced gap between images */
+ /*   padding: 20px;  Optional padding for spacing */
 }
 
 .imageItem {
@@ -75,13 +86,6 @@
     height: auto;
 }
 
-.askdoc {
-    display: flex;
-    align-items: center;
-    height: 100vh;
-    padding-left: 20px; /* Adjust padding as needed */
-}
 
-.askpatient {
-    background-color: aqua;
-}
+
+

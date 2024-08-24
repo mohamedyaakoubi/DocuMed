@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 
+
 const DoctorParams = () => {
   // State for form inputs
   const [name, setName] = useState('');
