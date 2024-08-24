@@ -21,14 +21,14 @@ import {Appointments} from './ClientComponents/Appointments/Appointments.jsx';
 import DoctorParams from './DoctorComponents/DoctorParameters/DoctorParams';
 import { PatientRecord } from './DoctorComponents/DocPatientVisualization/PatientRecord';
 import { DocDashboard } from './DoctorComponents/DocDhashboard/DocDashboard';
-import { DocInsertion } from './DoctorComponents/DocInertion/DocInsertion';
+import DocInsertion from './DoctorComponents/DocInertion/DocInsertion.jsx';
 import MakeAppointment from './ClientComponents/Appointments/MakeAppointment.jsx';
 
-
-
+import {UserProvider} from './Context/UserContext.jsx'
 
 function App() {
   return (
+    <UserProvider>
       <div className="App">
         
           <BrowserRouter>
@@ -68,6 +68,7 @@ function App() {
               <Footer />
           </BrowserRouter>
       </div>
+      </UserProvider>
   );
 }
 
