@@ -20,16 +20,7 @@ export const Home = () => {
 
   return (
     <div>
-      <nav className="navbar">
-        <div className="navButtons">
-          <Button className="navButton">Home</Button>
-          <Button className="navButton" onClick={() => navigate('/Contact')}>Contact</Button>
-          <Button className="navButton" onClick={() => navigate('/Login')}>Login</Button>
-          <Button className="navButton" onClick={() => navigate('/SignUp')}>Sign Up</Button>
-          <Button className="navButton">Help</Button>
-        </div>
-      </nav>
-
+      
 
       <div className="contentContainer">
         <div className="statements">

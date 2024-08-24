@@ -1,7 +1,12 @@
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 import { useState } from 'react';
 import { db } from '../../Configs/firebase';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import '../styleSignUp.css'
 
 export const DocInsertion = () => {
     const [description, setDescription] = useState('');
@@ -60,60 +65,61 @@ export const DocInsertion = () => {
     };
 
     return (
+        <div class="body"> 
         <form
+            class="container , containerdiv"
             onSubmit={handleSubmit}
             style={{ display: 'flex', flexDirection: 'column' }}
         >
-            <input
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                type="text"
-                placeholder="Description"
-                required
-            />
-            <input
+            
+                <textarea class="form-control" placeholder="Description" id="floatingTextarea2" value={description}
+                onChange={(e) => setDescription(e.target.value)} required></textarea>
+                
+            
+            
+            <Form.Control className='inputss'
                 value={diagnosis}
                 onChange={(e) => setDiagnosis(e.target.value)}
                 type="text"
                 placeholder="Diagnosis"
                 required
             />
-            <input
+            <Form.Control className='inputss'
                 value={docAddress}
                 onChange={(e) => setDocAddress(e.target.value)}
                 type="text"
                 placeholder="Doctor Address"
                 required
             />
-            <input
+            <Form.Control className='inputss'
                 value={docName}
                 onChange={(e) => setDocName(e.target.value)}
                 type="text"
                 placeholder="Doctor Name"
                 required
             />
-            <input
+            <Form.Control className='inputss'
                 value={docSurname}
                 onChange={(e) => setDocSurname(e.target.value)}
                 type="text"
                 placeholder="Doctor Surname"
                 required
             />
-            <input
+            <Form.Control className='inputss'
                 value={remarks}
                 onChange={(e) => setRemarks(e.target.value)}
                 type="text"
                 placeholder="Remarks"
                 required
             />
-            <input
+            <Form.Control className='inputss'
                 value={specialty}
                 onChange={(e) => setSpecialty(e.target.value)}
                 type="text"
                 placeholder="Specialty"
                 required
             />
-            <input
+            <Form.Control className='inputss'
                 value={treatment}
                 onChange={(e) => setTreatment(e.target.value)}
                 type="text"
@@ -122,13 +128,17 @@ export const DocInsertion = () => {
             />
             <label>
                 <input
+                    className='chekini'
                     type="checkbox"
                     checked={stillOngoing}
                     onChange={(e) => setStillOngoing(e.target.checked)}
                 />
                 Still Ongoing
             </label>
-            <button type="submit">Submit</button>
+            <button className='form-button' type="submit">Submit</button>
+            
+            
         </form>
+        </div>
     );
 };

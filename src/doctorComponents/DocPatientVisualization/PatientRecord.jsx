@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { db } from '../../Configs/firebase';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { useParams, Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 
 export const PatientRecord = () => {
     const { patientId } = useParams();
@@ -68,11 +71,157 @@ export const PatientRecord = () => {
 
     return (
         <>
-            <h1>{patient.name} {patient.surname}</h1>
-            <p><strong>Age:</strong> {patient.age}</p>
-            <p><strong>Gender:</strong> {patient.gender}</p>
-            <p><strong>ID:</strong> {patient.patientId}</p>
+        <div class="container" style={{float:'left' , backgroundColor:'white'}}>
+            <div class="main-body">
+            
+        
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150"/>
+                                    <div class="mt-3">
+                                        <h4>{patient.name}</h4>
+                                        <p class="text-secondary mb-1" style={{fontWeight:'bold'}}>{patient.patientId}</p>
+                                        <p class="text-secondary mb-1">19 years old</p>
+                                        <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                                        <button class="btn btn-primary">Message</button>
+                                        
+                                    </div>
+                                </div>
+                            
+                            
+                            </div>
+                            </div>
+                        </div>
+                        
+                        
+                        <div class="col-md-8">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                        <h6 class="mb-0" >Full Name</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                        Kenneth Valdez
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    fip@jukmuh.al
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Phone</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    (239) 816-9029
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0">Mobile</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    (320) 380-4539
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    <h6 class="mb-0" style={{marginRight:'-10px'}}>Address</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                    Bay Area, San Francisco, CA
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                    <a class="btn btn-primary " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            
+            </div> 
+        </div>
+        
 
+
+
+        <div  > 
+        <form
+            class="container , containerdiv"
+            style={{marginTop:'-500px', display: 'flex', flexDirection: 'column'}}
+        >
+            
+                <textarea class="form-control" placeholder="Description" id="floatingTextarea2" ></textarea>
+                
+            
+                
+            <Form.Control className='inputss'
+                
+                type="text"
+                placeholder={"Date: +" + 'record.docName' || 'N/A'}
+                disabled
+            />
+            <Form.Control className='inputss'
+
+                type="text"
+                placeholder="Doctor: "
+                disabled
+            />
+            <Form.Control className='inputss'
+      type="text"
+                placeholder="Diagnosis: "
+                disabled
+            />
+            <Form.Control className='inputss'
+                
+
+                type="text"
+                placeholder="Treatment: "
+                disabled
+            />
+            <Form.Control className='inputss'
+                
+                
+                type="text"
+                placeholder="Remarks: "
+                disabled
+            />
+            <Form.Control className='inputss'
+                
+                type="text"
+                placeholder="Specialty: "
+                disabled
+            />
+            <Form.Control className='inputss'
+                
+                type="text"
+                placeholder="Doctor Address: "
+                disabled
+            />
+            
+            
+        </form>
+        </div>
+        --------------
+            
             <h2>Medical History</h2>
             {medicalHistory.length > 0 ? (
                 <ul>
@@ -96,8 +245,7 @@ export const PatientRecord = () => {
             )}
 
             {/* Render the test component with the link to a test patient record */}
-            <SomeComponent />
-        </>
+            <SomeComponent />     </>
     );
 };
 
