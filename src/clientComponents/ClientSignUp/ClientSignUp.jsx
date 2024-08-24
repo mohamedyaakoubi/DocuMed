@@ -4,6 +4,15 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
+
+import { useNavigate } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../../Configs/firebase'; // Adjust the path according to your project structure
+import '../../doctorComponents/styleSignUp.css'
+import { Link } from 'react-router-dom';
+
+
 export const ClientSignUp = () => {
 
     return(
