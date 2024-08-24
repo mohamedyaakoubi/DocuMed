@@ -4,6 +4,7 @@ import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 
 import { useParams, Link, useNavigate } from 'react-router-dom';
 
+
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
@@ -182,7 +183,7 @@ export const PatientRecord = () => {
             class="container , containerdiv"
             style={{marginTop:'-500px', display: 'flex', flexDirection: 'column'}}
         >
-            <h2>Medical History</h2>
+            
                 <textarea class="form-control" placeholder="Description" id="floatingTextarea2" ></textarea>
                 
             
@@ -190,19 +191,18 @@ export const PatientRecord = () => {
             <Form.Control className='inputss'
                 
                 type="text"
-                placeholder={"Date: 24/08/2024 01:30:19" }
+                placeholder={"Date: +" + 'record.docName' || 'N/A'}
                 disabled
             />
-            
             <Form.Control className='inputss'
 
                 type="text"
-                placeholder="Doctor: Dr. koussay Hamdi"
+                placeholder="Doctor: "
                 disabled
             />
             <Form.Control className='inputss'
       type="text"
-                placeholder="Diagnosis: N/A"
+                placeholder="Diagnosis: "
                 disabled
             />
             <Form.Control className='inputss'
@@ -210,37 +210,33 @@ export const PatientRecord = () => {
 
 
                 type="text"
-                placeholder="Treatment:  Doliprane"
+                placeholder="Treatment: "
                 disabled
             />
             <Form.Control className='inputss'
                 
                 
                 type="text"
-                placeholder="Remarks:  You need to relax 10 days"
+                placeholder="Remarks: "
                 disabled
             />
             <Form.Control className='inputss'
                 
                 type="text"
-                placeholder="Specialty:  Psychology"
+                placeholder="Specialty: "
                 disabled
             />
             <Form.Control className='inputss'
                 
                 type="text"
-                placeholder="Doctor Address:  Tunis, Zahra"
+                placeholder="Doctor Address: "
                 disabled
             />
             
             
         </form>
         </div>
-
-    
-
  
-
             
             <h2>Medical History</h2>
             {medicalHistory.length > 0 ? ( // Conditional rendering based on medical history availability
@@ -248,16 +244,6 @@ export const PatientRecord = () => {
                     {medicalHistory.map((record, index) => (
                         <li key={index}>
                             <hr />
-
-                            <p><strong>Date: </strong> {record.timeAdded ? new Date(record.timeAdded.seconds * 1000).toLocaleString() : 'N/A'}</p>
-                            <p><strong>Doctor:</strong> Dr. {record.docName || 'N/A'} {record.docSurname || 'N/A'}</p>
-                            <p><strong>Diagnosis:</strong> {record.diagnosis || 'N/A'}</p>
-                            <p><strong>Treatment:</strong> {record.treatment || 'N/A'}</p>
-                            <p><strong>Description:</strong> {record.description || 'N/A'}</p>
-                            <p><strong>Remarks:</strong> {record.remarks || 'N/A'}</p>
-                            <p><strong>Specialty:</strong> {record.specialty || 'N/A'}</p>
-                            <p><strong>Doctor Address:</strong> {record.docAddress || 'N/A'}</p>
-
                             <p><strong>Date:</strong> {record.timeAdded ? new Date(record.timeAdded.seconds * 1000).toLocaleString() : 'N/A'}</p> {/* Convert and display date */}
                             <p><strong>Doctor:</strong> Dr. {record.docName || 'N/A'} {record.docSurname || 'N/A'}</p> {/* Display doctor's name */}
                             <p><strong>Diagnosis:</strong> {record.diagnosis || 'N/A'}</p> {/* Display diagnosis */}
@@ -266,7 +252,6 @@ export const PatientRecord = () => {
                             <p><strong>Remarks:</strong> {record.remarks || 'N/A'}</p> {/* Display remarks */}
                             <p><strong>Specialty:</strong> {record.specialty || 'N/A'}</p> {/* Display doctor's specialty */}
                             <p><strong>Doctor Address:</strong> {record.docAddress || 'N/A'}</p> {/* Display doctor's address */}
-
                         </li>
                     ))}
                 </ul>
