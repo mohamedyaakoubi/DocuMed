@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../../Configs/firebase'; // Adjust the path according to your project structure
-import '../../DoctorComponents/styleSignUp.css'
+import '../../doctorComponents/styleSignUp.css'
 import { Link } from 'react-router-dom';
 
 export const ClientSignUp = () => {
