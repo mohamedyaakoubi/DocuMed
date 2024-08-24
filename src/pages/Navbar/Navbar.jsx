@@ -1,30 +1,52 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { Link } from 'react-router-dom';
+
+import './Navbar.css'
+
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
+// import { useUser } from '../../Context/UserContext';
+
 
 const Navbar = () => {
   const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
   const auth = getAuth();
   const currentUser = auth.currentUser;
+  const firestore = getFirestore();
 
   useEffect(() => {
-    if (currentUser) {
-      const fetchUserRole = () => {
-        const userRole = JSON.parse(localStorage.getItem("userRole"));
-        console.log("Fetched userRole:", userRole); // Debugging line
-        setUserRole(userRole);
-      };
+    setUserRole(localStorage.getItem("role"))
+    const fetchUserRole = async () => {
+      if (currentUser) {
+        const userDocRef = doc(firestore, 'patients', currentUser.uid); // Check 'patients' collection first
+        const userDoc = await getDoc(userDocRef);
 
-      fetchUserRole();
-    }
-  }, [currentUser]);
+        if (userDoc.exists()) {
+          setUserRole('patient');
+        } else {
+          // Check 'doctors' collection if not found in 'patients'
+          const doctorDocRef = doc(firestore, 'doctors', currentUser.uid);
+          const doctorDoc = await getDoc(doctorDocRef);
+
+          if (doctorDoc.exists()) {
+            setUserRole('doctor');
+          } else {
+            console.error('User role not found!');
+          }
+        }
+      }
+    };
+
+    // fetchUserRole();
+  }, [currentUser, firestore]);
 
   const handleLogout = async () => {
     try {
       await auth.signOut();
-      localStorage.clear();
       navigate('/Login');
     } catch (error) {
       console.error('Error signing out:', error);
@@ -34,6 +56,21 @@ const Navbar = () => {
   const handleAppointmentsClick = () => {
     navigate('/appointments');
   };
+
+  const handleParametersClick = () => {
+    if (userRole === 'patient') {
+      navigate('/ClientParams');
+    } else if (userRole === 'doctor') {
+      navigate('/DocParams');
+    }
+  };
+  const HandleMyRecord = () => {
+    if (userRole === 'patient') {
+      navigate(`/PatientRecord/${currentUser.uid}`);
+    }
+  };
+
+
 
   return (
     <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#e3f2fd' }}>
@@ -68,6 +105,9 @@ const Navbar = () => {
               <button className="btn btn-primary" onClick={handleAppointmentsClick}>
                 My Appointments
               </button>
+              <button className="btn btn-primary" onClick={HandleMyRecord}>
+                My Records
+              </button>
             </li>
           )}
           {userRole && (
@@ -77,6 +117,11 @@ const Navbar = () => {
               </Link>
             </li>
           )}
+          <li className="nav-item">
+            <button className="btn btn-secondary" onClick={handleParametersClick}>
+              Parameters
+            </button>
+          </li>
         </ul>
         {currentUser && (
           <button className="btn btn-outline-danger my-2 my-sm-0" onClick={handleLogout}>Logout</button>

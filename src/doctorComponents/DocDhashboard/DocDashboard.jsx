@@ -72,12 +72,13 @@ export const DocDashboard = () => {
     fetchDocIdAndAppointments();
   }, [currentUser]);
 
-  const handleAction = async (appointmentId, action) => {
+  const handleAction = async (appointmentId, action, patientId) => {
     try {
       const appointmentDocRef = doc(db, 'patientAppointments', appointmentId);
 
       if (action === 'accept') {
         await updateDoc(appointmentDocRef, { status: 'Accepted' });
+        navigate(`/PatientRecord/${patientId}`);
       } else if (action === 'reject') {
         await updateDoc(appointmentDocRef, { status: 'Rejected' });
       } else if (action === 'delay') {
@@ -108,10 +109,6 @@ export const DocDashboard = () => {
     } catch (error) {
       console.error('Error logging out:', error);
     }
-  };
-
-  const handleCardClick = (patientId) => {
-    navigate(`/PatientRecords/${patientId}`);
   };
 
   if (loading) {
@@ -166,9 +163,30 @@ export const DocDashboard = () => {
                       <td>{patient.surname || 'N/A'}</td>
                       <td>{new Date(appointment.appointmentDue.seconds * 1000).toLocaleString()}</td>
                       <td>{appointment.specialty || 'N/A'}</td>
-                      <td><button className='accept' onClick={() => handleAction(appointment.id, 'accept')}>Accept</button></td>
-                      <td><button className='reject' onClick={() => handleAction(appointment.id, 'reject')}>Reject</button></td>
-                      <td><button className='delete' onClick={() => handleAction(appointment.id, 'delay')}>Delay</button></td>
+                      <td>
+                        <button 
+                          className='accept' 
+                          onClick={() => handleAction(appointment.id, 'accept', appointment.patientId)}
+                        >
+                          Accept
+                        </button>
+                      </td>
+                      <td>
+                        <button 
+                          className='reject' 
+                          onClick={() => handleAction(appointment.id, 'reject')}
+                        >
+                          Reject
+                        </button>
+                      </td>
+                      <td>
+                        <button 
+                          className='delete' 
+                          onClick={() => handleAction(appointment.id, 'delay')}
+                        >
+                          Delay
+                        </button>
+                      </td>
                     </tr>
                   );
                 })}
@@ -176,23 +194,6 @@ export const DocDashboard = () => {
             </table>
           </div>
         </div>
-      </div>
-
-      {/* Patient cards should be displayed here if intended */}
-      <div className="patient-cards-container">
-        {Object.values(patients).map(patient => (
-          <div
-            key={patient.patientId}
-            className="patient-card"
-            onClick={() => navigate(`/PatientRecord/${patient.patientId}`)} // Navigate to patient detail page
-          >
-            <div className='patient-info'>
-              <h4>{patient.name} {patient.surname}</h4>
-              <p>Age: {patient.age || 'N/A'}</p>
-              <p>Gender: {patient.gender || 'N/A'}</p>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   );

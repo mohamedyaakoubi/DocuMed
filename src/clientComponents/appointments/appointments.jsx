@@ -50,27 +50,57 @@ export const Appointments = ({ patientId }) => {
     }, [patientId]);
 
     return (
-        <div>
-            <h2>Your Appointments</h2>
+        <div style={{ padding: "2rem" }}>
+            <h2 style={{ marginBottom: "2rem", textAlign: "center", fontSize: "2rem", color: "#333" }}>Your Appointments</h2>
             {loading ? (
-                <p>Loading...</p> // Display loading state
+                <p style={{ textAlign: "center", color: "#999" }}>Loading...</p> // Display loading state
             ) : error ? (
-                <p>{error}</p> // Display error message if any
+                <p style={{ textAlign: "center", color: "red" }}>{error}</p> // Display error message if any
             ) : (
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.5rem" }}>
                     {appointments.length > 0 ? (
                         appointments.map(appointment => (
-                            <div key={appointment.appointmentId} style={{ backgroundColor: "lightgray", padding: "1rem", borderRadius: "8px", textAlign: "center" }}>
-                                <img src="assets/hello.jpg" alt={appointment.docName} width={50} height={50} />
-                                <p><strong>Doctor:</strong> {appointment.docName} {appointment.docSurname}</p>
-                                <p><strong>Specialty:</strong> {appointment.specialty}</p>
-                                <p><strong>Date:</strong> {new Date(appointment.appointmentDue.toDate()).toLocaleDateString()}</p>
-                                <p><strong>Time:</strong> {new Date(appointment.appointmentDue.toDate()).toLocaleTimeString()}</p>
-                                <p><strong>Status:</strong> {appointment.status}</p>
+                            <div 
+                                key={appointment.appointmentId} 
+                                style={{
+                                    backgroundColor: "#fff", 
+                                    padding: "1.5rem", 
+                                    borderRadius: "10px", 
+                                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+                                    textAlign: "center"
+                                }}
+                            >
+                                <img 
+                                    src="assets/hello.jpg" 
+                                    alt={appointment.docName} 
+                                    width={80} 
+                                    height={80} 
+                                    style={{ borderRadius: "50%", marginBottom: "1rem" }} 
+                                />
+                                <p style={{ fontWeight: "bold", marginBottom: "0.5rem" }}>
+                                    {appointment.docName} {appointment.docSurname}
+                                </p>
+                                <p style={{ color: "#666", marginBottom: "0.5rem" }}>
+                                    <strong>Specialty:</strong> {appointment.specialty}
+                                </p>
+                                <p style={{ color: "#666", marginBottom: "0.5rem" }}>
+                                    <strong>Date:</strong> {new Date(appointment.appointmentDue.toDate()).toLocaleDateString()}
+                                </p>
+                                <p style={{ color: "#666", marginBottom: "0.5rem" }}>
+                                    <strong>Time:</strong> {new Date(appointment.appointmentDue.toDate()).toLocaleTimeString()}
+                                </p>
+                                <p 
+                                    style={{ 
+                                        fontWeight: "bold", 
+                                        color: appointment.status === 'Pending' ? '#FFA500' : appointment.status === 'Approved' ? '#008000' : '#FF0000' 
+                                    }}
+                                >
+                                    {appointment.status}
+                                </p>
                             </div>
                         ))
                     ) : (
-                        <p>No appointments found.</p>
+                        <p style={{ textAlign: "center", color: "#999", width: "100%" }}>No appointments found.</p>
                     )}
                 </div>
             )}

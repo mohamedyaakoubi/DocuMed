@@ -33,9 +33,11 @@ export const LogIn = () => {
 
             if (!doctorSnapshot.empty) {
                 // User is a doctor
+                localStorage.setItem("role", "doctor")
                 navigate('/DocDashboard');
             } else if (!patientSnapshot.empty) {
                 // User is a patient
+                localStorage.setItem("role", "patient")
                 navigate('/ClientDashboard');
             } else {
                 // No user found in either collection

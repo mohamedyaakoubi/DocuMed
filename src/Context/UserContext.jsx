@@ -1,4 +1,4 @@
-import { createContext, useEffect, useContext } from 'react';
+import { createContext, useEffect, useContext, useState } from 'react';
 
 import { auth, db } from '../Configs/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -9,6 +9,7 @@ const userContext = createContext();
 export const UserProvider = ({ children }) => {
 	const [user] = useAuthState(auth);
 	let userData;
+	const [role, setRole] = useState(null)
 
 	if (user) {
 		userData = {
@@ -18,17 +19,19 @@ export const UserProvider = ({ children }) => {
 			photoUrl: user.photoURL,
 			role: '',
 		};
-		const usersRef = collection(db, 'users');
+		const usersRef = collection(db, 'patients');
 		const userQuerry = query(usersRef, where('userId', '==', user?.uid));
 		getDocs(userQuerry).then((data) => {
-			userData.role = data.docs[0].data().userRole;
-		});
+			if (data.docs.length > 0){
+				setRole("patient")
+			}
+		})
 	}
 	if (!user) {
 		userData = null;
 	}
 	return (
-		<userContext.Provider value={userData}>{children}</userContext.Provider>
+		<userContext.Provider value={{userData, role}}>{children}</userContext.Provider>
 	);
 };
 
