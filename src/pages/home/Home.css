@@ -1,69 +1,92 @@
 body {
-  background-color: #e3effd; 
+  background-color: antiquewhite; 
 }
 
-
 .imageGroup {
-  /* display: flex !important;            */
+  display: flex !important;
   justify-content: center; 
   flex-direction: row;
- /* width: 80%; */
- gap: 180px;
- align-items: center;
- padding-left: 80px;
- padding-right: 90px;
- padding-top: 40px;
+  gap: 30px;
+
+
 }
 
 .imageItem {
   display: flex;
-  flex-direction: column;  
-  align-items: center;     
+  flex-direction: column;
+  align-items: center;
 }
 
 .imageItem img {
-  width: 200px;            
-  height: auto;            
-  margin-bottom: 10px;    
+  width: 100px;
+  height: auto;
+  margin-bottom: 0; 
+  margin-left: 50px;
 }
 
 .imageItem p {
-  text-align: center;    
-  margin: 0;     
-  padding-left: 1px; 
-}
-.docImage{
-  height: 500px;
-  padding-left: 80px;
-  display: block;
-  margin-left: 30;
-  margin-right: auto;
-  width: 70%;
+  text-align: center;
+  padding-left: 1; 
+  margin-left: 50px;
+
+
 }
 
 .contentContainer {
-  
   display: flex;
-  /* flex-direction: row-reverse; */
+  flex-direction: row-reverse;
   justify-content: space-around;
-  /* align-items: flex-start; */
+  align-items: flex-start;
   background-color: #e3effd; 
-  /* padding: 20px; */
+  padding: 20px;
   border-radius: 8px;
-  text-align: left;
-  margin-bottom: 90px;
-  width:90%;
-  padding-left: 80px;
 }
 
-.askdoc,.askpatient {
-  background-color: #e3f2fd; 
+.askdoc, .askpatient {
+  background-color:#e3effd; 
   padding: 20px; 
   border-radius: 8px; 
   margin: 20px 0; 
-}
-.askdoc img{
-  padding-left: 280px;
-}
 
 
+}
+.statement1{
+  font-size: 2rem;
+  font-weight: 600;
+
+}
+.statement2{
+  font-size: 1.2rem;
+  font-weight: 600;
+
+}
+.statement3{
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: 600px;
+
+}
+.all{
+ 
+  background-color: aqua;
+  margin-top: -20px ;
+}
+.servicesSection{
+  padding-top: 30px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.alignili{
+  text-align: left;
+  width: 600px;
+  height: 18rem;
+  padding-top: -30px;
+}
+.docImage{
+  float: right;
+  margin-top: -100px;
+}
+.areu{
+  height: 80px;
+}
