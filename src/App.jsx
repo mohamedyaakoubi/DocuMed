@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home } from './Pages/Home/home';
+import { Home } from './Pages/Home/Home.jsx';
 import { About } from './Pages/About/About';
 import Contact from './Pages/Contact/Contact';
 import { LogIn } from './Pages/LogIn/LogIn';
@@ -8,35 +8,27 @@ import { SignUp } from './Pages/SignUp/SignUp';
 import { Footer } from './Pages/Footer/Footer';
 
 
-import {ClientDashboard} from './ClientComponents/ClientDashboard/clientDashboard'
+import ClientDashboard from './ClientComponents/ClientDashboard/ClientDashboard.jsx';
 import Navbar from './Pages/Navbar/Navbar'; 
 import { Pricing } from './Pages/Pricing/Pricing';
 
 import { ClientSignUp } from './ClientComponents/ClientSignUp/ClientSignUp';
-import DocSignUp from './doctorComponents/doctorSignUp/docSignUp';
-import { ClientParams } from './ClientComponents/ClientParameters/ClientParams';
+import DocSignUp from './DoctorComponents/DoctorSignUp/DocSignUp.jsx';
+import { ClientParams } from './ClientComponents/ClientParameters/ClientParams.jsx';
+import Appointments from './ClientComponents/Appointments/Appointments.jsx';
 
-import {Appointments} from './ClientComponents/appointments/appointments';
 
-
-import DoctorParams from './DoctorComponents/DoctorParameters/DoctorParams';
-import { PatientRecord } from './DoctorComponents/DocPatientVisualization/PatientRecord';
-import { DocDashboard } from './DoctorComponents/DocDhashboard/DocDashboard';
-import DocInsertion from './DoctorComponents/DocInertion/DocInsertion.jsx';
 import MakeAppointment from './ClientComponents/Appointments/MakeAppointment.jsx';
 
-import DoctorParams from './doctorComponents/doctorParameters/DoctorParams';
-import { PatientRecord } from './doctorComponents/DocPatientVisualization/PatientRecord';
-import { DocDashboard } from './doctorComponents/DocDhashboard/DocDashboard';
-import { DocInsertion } from './doctorComponents/DocInertion/DocInsertion';
-import MakeAppointment from './ClientComponents/appointments/MakeAppointment.jsx';
+import DoctorParams from './DoctorComponents/DoctorParameters/DoctorParams.jsx';
+import PatientRecord from './DoctorComponents/DocPatientVisualization/PatientRecord.jsx';
+import DocDashboard from './DoctorComponents/DocDhashboard/DocDashboard.jsx';
+import DocInsertion from './DoctorComponents/DocInertion/DocInsertion.jsx';
 
-
-import {UserProvider} from './Context/UserContext.jsx'
 
 function App() {
   return (
-    <UserProvider>
+    
       <div className="App">
         
           <BrowserRouter>
@@ -76,7 +68,7 @@ function App() {
               <Footer />
           </BrowserRouter>
       </div>
-      </UserProvider>
+     
   );
 }
 

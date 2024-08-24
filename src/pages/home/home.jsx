@@ -20,7 +20,7 @@ import { Button } from 'react-bootstrap';
 export const Home = () => {
 
 
-  const navigate = useNavigate(); 
+
 
   const navigate = useNavigate(); // Initialize the navigate function
 
