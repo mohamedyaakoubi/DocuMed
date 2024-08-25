@@ -1,15 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import doc from '../Navbar/doc.jpeg';
-import heart from '../Navbar/heart.png';
-import calander from '../Navbar/calander.jpeg';
-import helpdoc from '../Navbar/helpdoc.jpg';
-import patient from '../Navbar/patient.png';
+import doc from './doc.jpeg';
+import heart from './heart.png';
+import calander from './calander.jpeg';
+import helpdoc from './helpdoc.jpg';
+import patient from './patient.png';
 import pat from './pat.jpg';
 
 import calen from './calen.png'
 import './Home.css'
-import './Home.css';
+
 
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button } from 'react-bootstrap';
@@ -19,19 +19,19 @@ export const Home = () => {
   const navigate = useNavigate(); // Initialize the navigate function
 
   return (
-    <div>
+    <div className='body1'>
       
 
       <div className="contentContainer" >
         <div className="statements" style={{marginTop:"200px"}}>
           <p className="statement , statement1" >Welcome at DocuMed</p>
           <p className="statement , statement2">Connecting Doctors and Patients through the Digital word </p>
-          <p className="statement , statement3" >DocuMed is a palatform designed to facilitate the communication between the Doctor and the Patients . It offers a Digital Records , appointment taking and many others services that the will discover after your log in ! </p>
+          <p className="statement , statement3" >DocuMed is a palatform designed to facilitate the communication between the Doctor and the Patients. It offers a Digital Records , appointment taking and many others services that the will discover after your log in ! </p>
         </div>
 
         <div>
         <div className="imageContainer">
-          <img src='/assets/doctori.png' alt="Document" className="docImage1"   style={{width:"500px",  }}/>
+          <img src='/assets/doctori.png' alt="Document" className="docImage1" />
         </div>
       </div>
       </div>

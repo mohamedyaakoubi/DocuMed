@@ -166,10 +166,10 @@ export const PatientRecord = () => {
         <div  > 
         <form
             class="container , containerdiv"
-            style={{marginTop:'-500px', display: 'flex', flexDirection: 'column'}}
+            style={{marginTop:'10px', display: 'flex', flexDirection: 'column'}}
         >
             <h2>Medical History</h2>
-                <textarea class="form-control" placeholder="Description" id="floatingTextarea2" ></textarea>
+                <textarea class="form-control" placeholder="here is Description" id="floatingTextarea2" disabled ></textarea>
                 
             
                 
