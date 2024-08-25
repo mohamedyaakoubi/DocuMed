@@ -1,29 +1,74 @@
-/* Navbar.css */
-
-/* Existing styles */
-
-.navbar {
-    background-color: #333;
-    padding: 10px;
+/* General Navbar Styles */
+nav {
+    background-color: #fff;
+    height: 80px;
+    margin: 20px;
+    border-radius: 16px;
+    padding: 0.5rem;
+    box-shadow: 0 10px 40px rgba(159, 162, 177, 0.8);
 }
 
-.navButtons {
-    display: flex;
-    justify-content: space-around;
+.navbar-brand {
+    font-weight: 500;
+    color: #00b5ec;
+    font-size: 24px;
+    transition: 0.3s color;
 }
 
-.navButton {
-    background-color: #555;
-    color: white;
+.login-button {
+    background-color: #00b5ec;
+    color: #fff;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: 0.3s background-color;
+}
+
+.login-button:hover {
+    background-color: #02a7d9;
+}
+
+.navbar-toggler {
     border: none;
-    padding: 10px 20px;
-    cursor: pointer;
+    font-size: 1.25rem;
 }
 
-.navButton:hover {
-    background-color: #777;
+.navbar-toggler:focus, .btn-close:focus {
+    box-shadow: none;
+    outline: none;
 }
 
+.nav-link {
+    color: #666777;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: #000;
+}
+
+@media (min-width: 991px) {
+    .nav-link::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 2px;
+        background-color: #00b5ec;
+        visibility: hidden;
+        transition: 0.3s ease-in-out;
+    }
+    .nav-link:hover::before, .nav-link.active::before {
+        width: 100%;
+        visibility: visible;
+    }
+}
+
+/* Content Container Styles */
 .contentContainer {
     display: flex;
     justify-content: space-between;
@@ -35,8 +80,8 @@
 .statements {
     flex: 1;
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
+    flex-direction: column;
+    align-items: center;
     padding-left: 50px;
 }
 
@@ -51,16 +96,16 @@
     justify-content: center;
 }
 
-/* New Services Section */
+/* New Services Section Styles */
 .servicesSection {
     text-align: center;
     margin: 20px 0;
     font-size: 1.5rem;
     font-weight: bold;
 }
+
 .servicesSection1 {
     text-align: center;
-    /* margin: 20px 0; */
     padding-top: 20px;
     font-size: 1.5rem;
     font-weight: bold;
@@ -68,11 +113,10 @@
 }
 
 .imageGroup {
-    display: flex; 
-    justify-content: space-between; /* Space between images */
-    align-items: center; 
-    gap: 8px; /* Reduced gap between images */
- /*   padding: 20px;  Optional padding for spacing */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
 }
 
 .imageItem {
@@ -81,11 +125,7 @@
     align-items: center;
 }
 
-.heartImage, .calanderImage, .patientImage {
-    width: 50px; 
+.heartImage, .calendarImage, .patientImage {
+    width: 50px;
     height: auto;
 }
-
-
-
-

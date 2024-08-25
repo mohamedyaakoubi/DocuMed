@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-import './Navbar.css'
-
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
-// import { useUser } from '../../Context/UserContext';
-
+import './Navbar.css';
 
 const Navbar = () => {
   const [userRole, setUserRole] = useState(null);
@@ -18,16 +14,14 @@ const Navbar = () => {
   const firestore = getFirestore();
 
   useEffect(() => {
-    setUserRole(localStorage.getItem("role"))
     const fetchUserRole = async () => {
       if (currentUser) {
-        const userDocRef = doc(firestore, 'patients', currentUser.uid); // Check 'patients' collection first
+        const userDocRef = doc(firestore, 'patients', currentUser.uid);
         const userDoc = await getDoc(userDocRef);
 
         if (userDoc.exists()) {
           setUserRole('patient');
         } else {
-          // Check 'doctors' collection if not found in 'patients'
           const doctorDocRef = doc(firestore, 'doctors', currentUser.uid);
           const doctorDoc = await getDoc(doctorDocRef);
 
@@ -40,13 +34,13 @@ const Navbar = () => {
       }
     };
 
-    // fetchUserRole();
+    fetchUserRole();
   }, [currentUser, firestore]);
 
   const handleLogout = async () => {
     try {
       await auth.signOut();
-      navigate('/Login');
+      navigate('/login');
     } catch (error) {
       console.error('Error signing out:', error);
     }
@@ -63,70 +57,76 @@ const Navbar = () => {
       navigate('/DocParams');
     }
   };
-  const HandleMyRecord = () => {
+
+  const handleMyRecord = () => {
     if (userRole === 'patient') {
       navigate(`/PatientRecord/${currentUser.uid}`);
     }
   };
 
-
-
   return (
-    <nav className="navbar navbar-expand-lg" style={{ backgroundColor: '#e3f2fd' }}>
-      <a className="navbar-brand" href="#">My App</a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarText"
-        aria-controls="navbarText"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarText">
-        <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
-            <Link className="nav-link" to="/">Home <span className="sr-only"></span></Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/login">Log In</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/signup">Sign Up</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/pricing">Pricing</Link>
-          </li>
-          {userRole === 'patient' && (
-            <li className="nav-item">
-              <button className="btn btn-primary" onClick={handleAppointmentsClick}>
-                My Appointments
-              </button>
-              <button className="btn btn-primary" onClick={HandleMyRecord}>
-                My Records
-              </button>
-            </li>
+    <>
+      <nav className="navbar navbar-expand-lg fixed-top" style={{ backgroundColor: '#e3f2fd' }}>
+        <div className="container-fluid">
+          <a className="navbar-brand me-auto" href="#">Logo</a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="offcanvas offcanvas-end" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div className="offcanvas-header">
+              <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Logo</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div className="offcanvas-body">
+              <ul className="navbar-nav justify-content-center flex-grow-1 pe-3">
+                <li className="nav-item">
+                  <Link className="nav-link mx-lg-2 active" aria-current="page" to="/">Home</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link mx-lg-2" to="/login">Log In</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link mx-lg-2" to="/signup">Sign Up</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link mx-lg-2" to="/pricing">Pricing</Link>
+                </li>
+                {userRole === 'patient' && (
+                  <>
+                    <li className="nav-item">
+                      <button className="btn btn-primary mx-2" onClick={handleAppointmentsClick}>My Appointments</button>
+                    </li>
+                    <li className="nav-item">
+                      <button className="btn btn-primary mx-2" onClick={handleMyRecord}>My Records</button>
+                    </li>
+                  </>
+                )}
+                {userRole && (
+                  <li className="nav-item">
+                    <Link className="nav-link mx-lg-2" to={userRole === 'doctor' ? '/DocDashboard' : '/ClientDashboard'}>
+                      Dashboard
+                    </Link>
+                  </li>
+                )}
+                <li className="nav-item">
+                  <button className="btn btn-secondary mx-2" onClick={handleParametersClick}>Parameters</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {currentUser && (
+            <button className="btn btn-outline-danger" onClick={handleLogout}>Logout</button>
           )}
-          {userRole && (
-            <li className="nav-item">
-              <Link className="nav-link" to={userRole === 'doctor' ? '/DocDashboard' : '/ClientDashboard'}>
-                Dashboard
-              </Link>
-            </li>
-          )}
-          <li className="nav-item">
-            <button className="btn btn-secondary" onClick={handleParametersClick}>
-              Parameters
-            </button>
-          </li>
-        </ul>
-        {currentUser && (
-          <button className="btn btn-outline-danger my-2 my-sm-0" onClick={handleLogout}>Logout</button>
-        )}
-      </div>
-    </nav>
+        </div>
+      </nav>
+    </>
   );
 };
 

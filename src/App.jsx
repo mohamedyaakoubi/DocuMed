@@ -39,6 +39,7 @@ function App() {
                       <Route path="/ClientSignUp" element={<ClientSignUp />} />
                       <Route path="/DocSignUp" element={<DocSignUp />} />
                       <Route path="/ClientParams" element={<ClientParams />} />
+                     
                       <Route path="/Appointments" element={<Appointments />} />
                       <Route path="/DoctorParams" element={<DoctorParams />} />
                       <Route path="/PatientRecord/:patientId" element={<PatientRecord />} />

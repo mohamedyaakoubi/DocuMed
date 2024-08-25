@@ -1,14 +1,17 @@
 body {
-  background-color: antiquewhite; 
+  background-color: antiquewhite;
+}
+
+.body1 {
+  background-color: #00b5ec;
+  margin: 0;
 }
 
 .imageGroup {
   display: flex !important;
-  justify-content: center; 
+  justify-content: center;
   flex-direction: row;
   gap: 30px;
-
-
 }
 
 .imageItem {
@@ -20,16 +23,14 @@ body {
 .imageItem img {
   width: 100px;
   height: auto;
-  margin-bottom: 0; 
+  margin-bottom: 0;
   margin-left: 50px;
 }
 
 .imageItem p {
   text-align: center;
-  padding-left: 1; 
+  padding-left: 1px; /* Assuming you meant pixels */
   margin-left: 50px;
-
-
 }
 
 .contentContainer {
@@ -37,56 +38,64 @@ body {
   flex-direction: row-reverse;
   justify-content: space-around;
   align-items: flex-start;
-  background-color: #e3effd; 
-  padding: 20px;
-  border-radius: 8px;
+  background-color: #00b5ec;
 }
 
 .askdoc, .askpatient {
-  background-color:#e3effd; 
-  padding: 20px; 
-  border-radius: 8px; 
-  margin: 20px 0; 
-
-
+  background-color: #00b5ec;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
 }
-.statement1{
+
+.statement1 {
   font-size: 2rem;
   font-weight: 600;
-
 }
-.statement2{
+
+.statement2 {
   font-size: 1.2rem;
   font-weight: 600;
-
 }
-.statement3{
+
+.statement3 {
   font-size: 0.8rem;
   font-weight: 600;
   width: 600px;
+}
 
+.all {
+  background-color: #fff;
+  margin-top: -1px;
+  border-radius: 16px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
-.all{
- 
-  background-color: aqua;
-  margin-top: -20px ;
-}
-.servicesSection{
+
+.servicesSection {
   padding-top: 30px;
   margin-bottom: 60px;
   text-align: center;
 }
 
-.alignili{
+.alignili {
   text-align: left;
   width: 600px;
   height: 18rem;
-  padding-top: -30px;
+  padding-top: 0px;
 }
-.docImage{
+
+.docImage {
   float: right;
-  margin-top: -100px;
+  margin-top: -60px;
+  width: 500px;
 }
-.areu{
+
+.areu {
   height: 80px;
+}
+
+.docImage1 {
+  height: 450px;
+  margin-top: 120px;
 }
