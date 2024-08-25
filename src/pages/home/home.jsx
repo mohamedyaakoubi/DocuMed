@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import doc from './doc.jpeg';
 import heart from './heart.png';
-import calender from './calender.jpeg';
+import calender from './calander.jpeg';
 import helpdoc from './helpdoc.jpg';
 import patient from './patient.png';
 import pat from './pat.jpg';

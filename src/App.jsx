@@ -45,8 +45,6 @@ function App() {
                       <Route path="/ClientSignUp" element={<ClientSignUp />} />
                       <Route path="/DocSignUp" element={<DocSignUp />} />
                       <Route path="/ClientParams" element={<ClientParams />} />
-
-                      <Route path="/ClientDashboard" element={<ClientDashboard />} />
                      
                       <Route path="/Appointments" element={<Appointments />} />
 
