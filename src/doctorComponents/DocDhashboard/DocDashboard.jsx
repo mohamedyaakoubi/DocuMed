@@ -3,7 +3,7 @@ import { collection, query, where, getDocs, updateDoc, doc } from 'firebase/fire
 import { signOut } from 'firebase/auth';
 import { db, auth } from '../../Configs/firebase';
 import { useNavigate } from 'react-router-dom';
-import './Dashcss.css';
+import './dashcss.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export const DocDashboard = () => {
