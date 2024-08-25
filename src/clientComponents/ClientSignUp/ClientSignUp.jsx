@@ -67,22 +67,7 @@ export const ClientSignUp = () => {
     return (
         <>
             <div>
-                <nav
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-around',
-                        backgroundColor: 'antiquewhite',
-                    }}
-                >
-                    <img
-                        src="c:/Users/GigaByte/Desktop/new project/3584597.jpg"
-                        alt="Logo"
-                        style={{ width: '50px' }}
-                    />
-                    <h5>Centre d'aide ?</h5>
-                    <Link to="/login">Already have an account?</Link>
-                </nav>
+                
 
                 <Form onSubmit={handleSubmit}>
                     <Row className="mb-3">
@@ -245,9 +230,7 @@ export const ClientSignUp = () => {
                     </Button>
                 </Form>
 
-                <footer style={{ backgroundColor: 'aquamarine' }}>
-                    <center>Hello here footer</center>
-                </footer>
+               
             </div>
         </>
     );
