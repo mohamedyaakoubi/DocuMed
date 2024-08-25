@@ -72,6 +72,7 @@ export const ClientDashboard = () => {
                     </div>
                 ))}
             </div>
+        
         </>
     );
 };

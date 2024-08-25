@@ -67,8 +67,6 @@ export const ClientSignUp = () => {
     return (
         <>
             <div>
-                
-
                 <Form onSubmit={handleSubmit}>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="formGridName">
@@ -134,7 +132,7 @@ export const ClientSignUp = () => {
                             <Form.Label>Check Password</Form.Label>
                             <Form.Control
                                 type="password"
-                                placeholder="Renter password"
+                                placeholder="Re-enter password"
                                 name="checkPassword"
                                 value={formData.checkPassword}
                                 onChange={handleChange}
@@ -221,7 +219,7 @@ export const ClientSignUp = () => {
                         </Form.Group>
                     </Row>
 
-                    <Form.Group className="mb-3" id="formGridCheckbox">
+                    <Form.Group className="mb-3" id="formGridCheckbox" style={{ textAlign: "left" }}>
                         <Form.Check type="checkbox" label="Check me out" />
                     </Form.Group>
 
@@ -229,8 +227,6 @@ export const ClientSignUp = () => {
                         Submit
                     </Button>
                 </Form>
-
-               
             </div>
         </>
     );
