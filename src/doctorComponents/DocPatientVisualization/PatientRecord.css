@@ -1,0 +1,72 @@
+.patient-record {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.patient-card {
+    background-color: #ffffff; /* White background for the card */
+    border: 1px solid #ddd; /* Light border for the card */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.patient-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.patient-image {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.patient-info {
+    flex: 1;
+}
+
+.patient-info h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.edit-button {
+    margin-top: 10px;
+}
+
+.patient-details {
+    margin-bottom: 30px;
+}
+
+.medical-history {
+    margin-bottom: 30px;
+}
+
+.medical-history ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.record-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+.insert-diagnosis-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}

@@ -4,9 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { getAuth, signOut } from 'firebase/auth';
 import { db } from '../../Configs/firebase'; // Ensure this path is correct
+import './ClientDashboard.css'; // Import the CSS file
 
 export const ClientDashboard = () => {
     const [doctors, setDoctors] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
     const auth = getAuth();
     const user = auth.currentUser;
@@ -37,43 +39,49 @@ export const ClientDashboard = () => {
         }
     };
 
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredDoctors = doctors.filter(doctor =>
+        doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        doctor.surname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        doctor.specialty.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
-        <>
-            <div style={{ border: "solid black 1px", padding: "1rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <CiSearch />
-                <input
-                    type="text"
-                    className="form-control empty"
-                    id="iconified"
-                    placeholder="Search for doctors"
-                />
-                <button>Search</button>
-                <button onClick={handleLogout}>Logout</button>
-            </div>
-            <h2>Search for Your Doctor</h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem" }}>
-                {doctors.map(doctor => (
-                    <div key={doctor.id} style={{ backgroundColor: "#00b5ec", padding: "1rem", borderRadius: "8px" }}>
-                        <img src="assets/hello.jpg" alt={doctor.name} width={50} height={50} style={{borderRadius:'50%', marginBottom:"20px"}}/>
-                        <br />
-                        <span style={{ display: "inline-block" }}>
-                            <p style={{ display: "inline-block", margin: 0 }}>Name:</p>
-                            <p style={{ display: "inline-block", margin: 0 }}>{doctor.name}</p>
-                        </span><br />
-                        <p style={{ display: "inline-block", margin: 0 }}>Surname:</p>
-                        <p style={{ display: "inline-block", margin: 0 }}>{doctor.surname}</p><br />
-                        <p style={{ display: "inline-block", margin: 0 }}>Specialty:</p>
-                        <p style={{ display: "inline-block", margin: 0 }}>{doctor.specialty}</p><br />
-                        <p>More info?</p>
+        <div className="client-dashboard">
+            <header className="dashboard-header">
+                <div className="search-container">
+                    <CiSearch className="search-icon" />
+                    <input
+                        type="text"
+                        className="search-input"
+                        placeholder="Search for doctors"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
+                </div>
+                <button className="search-button">Search</button>
+                <button className="logout-button" onClick={handleLogout}>Logout</button>
+            </header>
+            <h2 className="dashboard-title">Search for Your Doctor</h2>
+            <div className="doctor-list">
+                {filteredDoctors.map(doctor => (
+                    <div key={doctor.id} className="doctor-card">
+                        <img src="assets/hello.jpg" alt={doctor.name} className="doctor-image" />
+                        <div className="doctor-info">
+                            <p><strong>Name:</strong> {doctor.name}</p>
+                            <p><strong>Surname:</strong> {doctor.surname}</p>
+                            <p><strong>Specialty:</strong> {doctor.specialty}</p>
+                        </div>
                         <Link to="/MakeAppointment" state={{ doctor, patientId }}>
-                            <button style={{borderRadius:'20px', marginBottom:"20px"}}>Make Appointment</button>
+                            <button className="appointment-button">Make Appointment</button>
                         </Link>
-                        <br />
                     </div>
                 ))}
             </div>
-        
-        </>
+        </div>
     );
 };
 

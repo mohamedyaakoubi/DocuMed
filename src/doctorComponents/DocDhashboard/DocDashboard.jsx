@@ -6,104 +6,85 @@ import { useNavigate } from 'react-router-dom';
 import './dashcss.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-export const DocDashboard = () => {
+const DocDashboard = () => {
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [patients, setPatients] = useState({});
   const [loading, setLoading] = useState(true);
-  const [docId, setDocId] = useState(null);
   const currentUser = auth.currentUser;
 
   useEffect(() => {
-    const fetchDocIdAndAppointments = async () => {
-      setLoading(true);
-
+    const fetchAppointments = async () => {
       try {
-        if (currentUser) {
-          // Get the current user's email
-          const userEmail = currentUser.email;
+        if (!currentUser) return;
 
-          // Query Firestore to find the docId for the current user
-          const doctorsCollection = collection(db, 'doctors');
-          const q = query(doctorsCollection, where('email', '==', userEmail));
-          const querySnapshot = await getDocs(q);
+        setLoading(true);
+        const userEmail = currentUser.email;
 
-          if (!querySnapshot.empty) {
-            const doctorDoc = querySnapshot.docs[0].data();
-            const doctorDocId = querySnapshot.docs[0].id;
-            setDocId(doctorDocId);
+        const doctorsQuery = query(collection(db, 'doctors'), where('email', '==', userEmail));
+        const doctorSnapshot = await getDocs(doctorsQuery);
 
-            // Fetch appointments based on the found docId
-            const appointmentsCollection = collection(db, 'patientAppointments');
-            const appointmentsQuery = query(appointmentsCollection, where('docId', '==', doctorDocId));
-            const appointmentsSnapshot = await getDocs(appointmentsQuery);
+        if (!doctorSnapshot.empty) {
+          const doctorDocId = doctorSnapshot.docs[0].id;
+          const appointmentsQuery = query(
+            collection(db, 'patientAppointments'),
+            where('docId', '==', doctorDocId)
+          );
 
-            const appointmentsList = appointmentsSnapshot.docs.map(doc => ({
-              id: doc.id,
-              ...doc.data(),
-            }));
+          const appointmentsSnapshot = await getDocs(appointmentsQuery);
+          const appointmentsList = appointmentsSnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
 
-            setAppointments(appointmentsList);
+          setAppointments(appointmentsList);
 
-            // Fetch patient details
-            const patientIds = [...new Set(appointmentsList.map(app => app.patientId))];
-            const patientsCollection = collection(db, 'patientInfo');
-            const patientsQuery = query(patientsCollection, where('patientId', 'in', patientIds));
-            const patientsSnapshot = await getDocs(patientsQuery);
+          const patientIds = appointmentsList.map(app => app.patientId);
+          const patientsQuery = query(
+            collection(db, 'patientInfo'),
+            where('patientId', 'in', patientIds)
+          );
 
-            const patientsData = {};
-            patientsSnapshot.docs.forEach(doc => {
-              const data = doc.data();
-              patientsData[data.patientId] = data;
-            });
+          const patientsSnapshot = await getDocs(patientsQuery);
+          const patientsData = patientsSnapshot.docs.reduce((acc, doc) => {
+            acc[doc.data().patientId] = doc.data();
+            return acc;
+          }, {});
 
-            setPatients(patientsData);
-          } else {
-            console.error('Doctor not found');
-          }
+          setPatients(patientsData);
+        } else {
+          console.error('Doctor not found');
         }
       } catch (error) {
-        console.error('Error fetching doctor ID or appointments:', error);
+        console.error('Error fetching appointments:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchDocIdAndAppointments();
+    fetchAppointments();
   }, [currentUser]);
 
   const handleAction = async (appointmentId, action, patientId) => {
     try {
-      const appointmentDocRef = doc(db, 'patientAppointments', appointmentId);
+      const appointmentRef = doc(db, 'patientAppointments', appointmentId);
+      const status = action.charAt(0).toUpperCase() + action.slice(1);
 
-      if (action === 'accept') {
-        await updateDoc(appointmentDocRef, { status: 'Accepted' });
-        navigate(`/PatientRecord/${patientId}`);
-      } else if (action === 'reject') {
-        await updateDoc(appointmentDocRef, { status: 'Rejected' });
-      } else if (action === 'delay') {
-        await updateDoc(appointmentDocRef, { status: 'Delayed' });
-      }
+      await updateDoc(appointmentRef, { status });
+      if (action === 'accept') navigate(`/PatientRecord/${patientId}`);
 
-      // Refresh appointments list
-      if (docId) {
-        const updatedQuerySnapshot = await getDocs(query(collection(db, 'patientAppointments'), where('docId', '==', docId)));
-        const updatedAppointmentsList = updatedQuerySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setAppointments(updatedAppointmentsList);
-      }
+      const updatedAppointments = appointments.map(app =>
+        app.id === appointmentId ? { ...app, status } : app
+      );
+      setAppointments(updatedAppointments);
     } catch (error) {
-      console.error('Error handling appointment action:', error);
+      console.error(`Error ${action}ing appointment:`, error);
     }
   };
 
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      localStorage.clear();
-      sessionStorage.clear();
       navigate('/Login');
       window.location.reload();
     } catch (error) {
@@ -111,36 +92,29 @@ export const DocDashboard = () => {
     }
   };
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="dashboard">
-      <button 
-        onClick={handleLogout} 
-        style={{ marginBottom: '20px', padding: '10px', backgroundColor: 'red', color: 'white' }}
-      >
-        Logout
-      </button>
-
-      <div className='main--content'>
-        <div className='header--wrapper'>
-          <div className='header--title'>
+      <button className="logout-btn" onClick={handleLogout}>Logout</button>
+      
+      <div className='main-content'>
+        <header className='header-wrapper'>
+          <div className='header-title'>
             <span>Primary</span>
             <h2>Dashboard</h2>
           </div>
-          <div className='user--info'> 
-            <div className='search--box'>
+          <div className='user-info'>
+            <div className='search-box'>
               <i className="fas fa-search"></i>
-              <input type='text' placeholder='Search'/>
+              <input type='text' placeholder='Search' />
             </div>
-            <img src="/assets/doctor.jpg" alt='' />
+            <img src="/assets/doctor.jpg" alt='Doctor' />
           </div>
-        </div>
+        </header>
 
-        <div className='tabular--wrapper'>
-          <h3 className='main--title'>Today's Appointments</h3>
+        <section className='tabular-wrapper'>
+          <h3 className='main-title'>Today's Appointments</h3>
           <div className='table-container'>
             <table>
               <thead>
@@ -164,28 +138,13 @@ export const DocDashboard = () => {
                       <td>{new Date(appointment.appointmentDue.seconds * 1000).toLocaleString()}</td>
                       <td>{appointment.specialty || 'N/A'}</td>
                       <td>
-                        <button 
-                          className='accept' 
-                          onClick={() => handleAction(appointment.id, 'accept', appointment.patientId)}
-                        >
-                          Accept
-                        </button>
+                        <button className='action-btn accept' onClick={() => handleAction(appointment.id, 'accept', appointment.patientId)}>Accept</button>
                       </td>
                       <td>
-                        <button 
-                          className='reject' 
-                          onClick={() => handleAction(appointment.id, 'reject')}
-                        >
-                          Reject
-                        </button>
+                        <button className='action-btn reject' onClick={() => handleAction(appointment.id, 'reject')}>Reject</button>
                       </td>
                       <td>
-                        <button 
-                          className='delete' 
-                          onClick={() => handleAction(appointment.id, 'delay')}
-                        >
-                          Delay
-                        </button>
+                        <button className='action-btn delay' onClick={() => handleAction(appointment.id, 'delay')}>Delay</button>
                       </td>
                     </tr>
                   );
@@ -193,7 +152,7 @@ export const DocDashboard = () => {
               </tbody>
             </table>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );

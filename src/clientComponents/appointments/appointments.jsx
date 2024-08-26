@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../Configs/firebase'; // Ensure this path is correct
+import './Appointments.css';
 
 export const Appointments = ({ patientId }) => {
     const [appointments, setAppointments] = useState([]);
-    const [loading, setLoading] = useState(true); // Add loading state
-    const [error, setError] = useState(null); // Add error state
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchAppointments = async () => {
             const UID = JSON.parse(localStorage.getItem("user")).uid;
-            const testPatientId = UID; // Replace with a known patientId for testing
+            const testPatientId = UID; 
 
             if (!patientId && !testPatientId) {
                 setError('Patient ID is not provided.');
@@ -20,18 +21,14 @@ export const Appointments = ({ patientId }) => {
 
             const idToQuery = patientId || testPatientId;
 
-            console.log('Fetching appointments for patientId:', idToQuery); // Debugging output
+            console.log('Fetching appointments for patientId:', idToQuery);
 
             try {
                 const appointmentsCollection = collection(db, 'patientAppointments');
                 const q = query(appointmentsCollection, where('patientId', '==', idToQuery));
                 const appointmentsSnapshot = await getDocs(q);
 
-                console.log('Appointments snapshot:', appointmentsSnapshot); // Debugging output
-
-                // Log all documents in the collection
-                const allDocsSnapshot = await getDocs(appointmentsCollection);
-                console.log('All documents in collection:', allDocsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+                console.log('Appointments snapshot:', appointmentsSnapshot);
 
                 if (appointmentsSnapshot.empty) {
                     setError('No appointments found.');
@@ -42,7 +39,7 @@ export const Appointments = ({ patientId }) => {
             } catch (error) {
                 setError('Error fetching appointments: ' + error.message);
             } finally {
-                setLoading(false); // Set loading to false regardless of success or failure
+                setLoading(false);
             }
         };
 
@@ -50,57 +47,45 @@ export const Appointments = ({ patientId }) => {
     }, [patientId]);
 
     return (
-        <div style={{ padding: "2rem" }}>
-            <h2 style={{ marginBottom: "2rem", textAlign: "center", fontSize: "2rem", color: "#333" }}>Your Appointments</h2>
+        <div className="appointments-container">
+            <h2 className="appointments-header">Your Appointments</h2>
             {loading ? (
-                <p style={{ textAlign: "center", color: "#999" }}>Loading...</p> // Display loading state
+                <p className="appointments-loading">Loading...</p>
             ) : error ? (
-                <p style={{ textAlign: "center", color: "red" }}>{error}</p> // Display error message if any
+                <p className="appointments-error">{error}</p>
             ) : (
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.5rem" }}>
+                <div className="appointments-grid">
                     {appointments.length > 0 ? (
                         appointments.map(appointment => (
-                            <div 
-                                key={appointment.appointmentId} 
-                                style={{
-                                    backgroundColor: "#fff", 
-                                    padding: "1.5rem", 
-                                    borderRadius: "10px", 
-                                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-                                    textAlign: "center"
-                                }}
-                            >
+                            <div key={appointment.appointmentId} className="appointment-card">
                                 <img 
                                     src="assets/hello.jpg" 
                                     alt={appointment.docName} 
-                                    width={80} 
-                                    height={80} 
-                                    style={{ borderRadius: "50%", marginBottom: "1rem" }} 
+                                    className="appointment-image" 
                                 />
-                                <p style={{ fontWeight: "bold", marginBottom: "0.5rem" }}>
-                                    {appointment.docName} {appointment.docSurname}
-                                </p>
-                                <p style={{ color: "#666", marginBottom: "0.5rem" }}>
-                                    <strong>Specialty:</strong> {appointment.specialty}
-                                </p>
-                                <p style={{ color: "#666", marginBottom: "0.5rem" }}>
-                                    <strong>Date:</strong> {new Date(appointment.appointmentDue.toDate()).toLocaleDateString()}
-                                </p>
-                                <p style={{ color: "#666", marginBottom: "0.5rem" }}>
-                                    <strong>Time:</strong> {new Date(appointment.appointmentDue.toDate()).toLocaleTimeString()}
-                                </p>
-                                <p 
-                                    style={{ 
-                                        fontWeight: "bold", 
-                                        color: appointment.status === 'Pending' ? '#FFA500' : appointment.status === 'Approved' ? '#008000' : '#FF0000' 
-                                    }}
-                                >
-                                    {appointment.status}
-                                </p>
+                                <div className="appointment-info">
+                                    <p className="appointment-doctor">
+                                        {appointment.docName} {appointment.docSurname}
+                                    </p>
+                                    <p className="appointment-specialty">
+                                        <strong>Specialty:</strong> {appointment.specialty}
+                                    </p>
+                                    <p className="appointment-date">
+                                        <strong>Date:</strong> {new Date(appointment.appointmentDue.toDate()).toLocaleDateString()}
+                                    </p>
+                                    <p className="appointment-time">
+                                        <strong>Time:</strong> {new Date(appointment.appointmentDue.toDate()).toLocaleTimeString()}
+                                    </p>
+                                    <p 
+                                        className={`appointment-status ${appointment.status.toLowerCase()}`}
+                                    >
+                                        {appointment.status}
+                                    </p>
+                                </div>
                             </div>
                         ))
                     ) : (
-                        <p style={{ textAlign: "center", color: "#999", width: "100%" }}>No appointments found.</p>
+                        <p className="appointments-empty">No appointments found.</p>
                     )}
                 </div>
             )}
