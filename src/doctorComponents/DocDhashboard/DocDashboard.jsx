@@ -4,6 +4,7 @@ import { signOut } from 'firebase/auth';
 import { db, auth } from '../../Configs/firebase';
 import { useNavigate } from 'react-router-dom';
 import './dashcss.css';
+import patientPic from '../DoctorParameters/profile.jpg'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const DocDashboard = () => {
@@ -119,6 +120,7 @@ const DocDashboard = () => {
             <table>
               <thead>
                 <tr>
+                  <th>Image</th> {/* New column for patient image */}
                   <th>Name</th>
                   <th>Surname</th>
                   <th>Date</th>
@@ -133,6 +135,13 @@ const DocDashboard = () => {
                   const patient = patients[appointment.patientId] || {};
                   return (
                     <tr key={appointment.id}>
+                      <td>
+                        <img 
+                          src={patient.imageUrl || patientPic} 
+                          alt={patient.name} 
+                          className="patient-image" 
+                        /> {/* Display patient image */}
+                      </td>
                       <td>{patient.name || 'N/A'}</td>
                       <td>{patient.surname || 'N/A'}</td>
                       <td>{new Date(appointment.appointmentDue.seconds * 1000).toLocaleString()}</td>
