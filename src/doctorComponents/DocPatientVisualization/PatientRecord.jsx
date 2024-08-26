@@ -3,7 +3,8 @@ import { db } from '../../Configs/firebase'; // Import the Firestore database in
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { useParams, useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
+import './PatientRecord.css';
 
 export const PatientRecord = () => {
     const { patientId } = useParams(); // Get the `patientId` from the URL parameters
@@ -64,135 +65,73 @@ export const PatientRecord = () => {
         navigate('/DocInsertion', { state: { patientId } });
     };
 
+    // Function to navigate to the edit page
+    const handleEditInfo = () => {
+        navigate('/ClientParams', { state: { patientId } });
+    };
+
     if (loading) {
-        return <p>Loading patient information...</p>; // Render loading message while data is being fetched
+        return <p className="loading-message">Loading patient information...</p>; // Render loading message while data is being fetched
     }
 
     if (!patient) {
-        return <p>Patient not found.</p>; // Render message if no patient data is found
+        return <p className="loading-message">Patient not found.</p>; // Render message if no patient data is found
     }
 
     return (
-        <>
-            <h1>{patient.name} {patient.surname}</h1> {/* Display patient's full name */}
-            <p><strong>Age:</strong> {patient.age}</p> {/* Display patient's age */}
-            <p><strong>Gender:</strong> {patient.gender}</p> {/* Display patient's gender */}
-            <p><strong>ID:</strong> {patient.patientId}</p> {/* Display patient's ID */}
-
-            <div className="container" style={{ float: 'left', backgroundColor: 'white' }}>
-                <div className="main-body">
-                    <div className="row gutters-sm">
-                        <div className="col-md-4 mb-3">
-                            <div className="card">
-                                <div className="card-body">
-                                    <div className="d-flex flex-column align-items-center text-center">
-                                        <img
-                                            src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                            alt="Patient"
-                                            className="rounded-circle"
-                                            width="150"
-                                        />
-                                        <div className="mt-3">
-                                            <h4>{patient.name}</h4>
-                                            <p className="text-secondary mb-1" style={{ fontWeight: 'bold' }}>
-                                                {patient.patientId}
-                                            </p>
-                                            <p className="text-secondary mb-1">{patient.age} years old</p>
-                                            <p className="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                                            <Button variant="primary">Message</Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col-md-8">
-                            <div className="card mb-3">
-                                <div className="card-body">
-                                    <div className="row">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Full Name</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            {patient.name} {patient.surname}
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div className="row">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Email</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            {patient.email || 'N/A'}
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div className="row">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Phone</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            {patient.phone || 'N/A'}
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div className="row">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Mobile</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            {patient.mobile || 'N/A'}
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div className="row">
-                                        <div className="col-sm-3">
-                                            <h6 className="mb-0">Address</h6>
-                                        </div>
-                                        <div className="col-sm-9 text-secondary">
-                                            {patient.address || 'N/A'}
-                                        </div>
-                                    </div>
-                                    <hr />
-                                    <div className="row">
-                                        <div className="col-sm-12">
-                                            <Button variant="primary" target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">
-                                                Edit
-                                            </Button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <div className="patient-record">
+            <Card className="patient-card">
+                <Card.Body>
+                    <div className="patient-header">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Patient" className="patient-image" />
+                        <div className="patient-info">
+                            <h1>{patient.name} {patient.surname}</h1>
+                            <p><strong>Age:</strong> {patient.age}</p>
+                            <p><strong>Gender:</strong> {patient.gender}</p>
+                            <p><strong>ID:</strong> {patient.patientId}</p>
+                            <Button className="edit-button" variant="outline-primary" onClick={handleEditInfo}>
+                                Edit Info
+                            </Button>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <h2>Medical History</h2>
-            {medicalHistory.length > 0 ? (
-                <ul>
-                    {medicalHistory.map((record, index) => (
-                        <li key={index}>
-                            <hr />
-                            <p><strong>Date:</strong> {record.timeAdded ? new Date(record.timeAdded.seconds * 1000).toLocaleString() : 'N/A'}</p>
-                            <p><strong>Doctor:</strong> Dr. {record.docName || 'N/A'} {record.docSurname || 'N/A'}</p>
-                            <p><strong>Diagnosis:</strong> {record.diagnosis || 'N/A'}</p>
-                            <p><strong>Treatment:</strong> {record.treatment || 'N/A'}</p>
-                            <p><strong>Description:</strong> {record.description || 'N/A'}</p>
-                            <p><strong>Remarks:</strong> {record.remarks || 'N/A'}</p>
-                            <p><strong>Specialty:</strong> {record.specialty || 'N/A'}</p>
-                            <p><strong>Doctor Address:</strong> {record.docAddress || 'N/A'}</p>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No medical history available.</p>
-            )}
+                    <div className="patient-details">
+                        <h5>Contact Information</h5>
+                        <p><strong>Email:</strong> {patient.email || 'N/A'}</p>
+                        <p><strong>Phone:</strong> {patient.phone || 'N/A'}</p>
+                        <p><strong>Mobile:</strong> {patient.mobile || 'N/A'}</p>
+                        <p><strong>Address:</strong> {patient.address || 'N/A'}</p>
+                    </div>
 
-            <Button className="btn btn-primary" onClick={handleInsertDiagnosis}>
-                Insert Diagnosis
-            </Button>
-        </>
+                    <div className="medical-history">
+                        <h2>Medical History</h2>
+                        {medicalHistory.length > 0 ? (
+                            <ul>
+                                {medicalHistory.map((record, index) => (
+                                    <li key={index} className="record-item">
+                                        <hr />
+                                        <p><strong>Date:</strong> {record.timeAdded ? new Date(record.timeAdded.seconds * 1000).toLocaleString() : 'N/A'}</p>
+                                        <p><strong>Doctor:</strong> Dr. {record.docName || 'N/A'} {record.docSurname || 'N/A'}</p>
+                                        <p><strong>Diagnosis:</strong> {record.diagnosis || 'N/A'}</p>
+                                        <p><strong>Treatment:</strong> {record.treatment || 'N/A'}</p>
+                                        <p><strong>Description:</strong> {record.description || 'N/A'}</p>
+                                        <p><strong>Remarks:</strong> {record.remarks || 'N/A'}</p>
+                                        <p><strong>Specialty:</strong> {record.specialty || 'N/A'}</p>
+                                        <p><strong>Doctor Address:</strong> {record.docAddress || 'N/A'}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p>No medical history available.</p>
+                        )}
+                    </div>
+
+                    <Button className="insert-diagnosis-btn" variant="primary" onClick={handleInsertDiagnosis}>
+                        Insert Diagnosis
+                    </Button>
+                </Card.Body>
+            </Card>
+        </div>
     );
 };
 

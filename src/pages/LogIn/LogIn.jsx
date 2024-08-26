@@ -1,28 +1,25 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
+import { useNavigate } from 'react-router-dom'; 
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../Configs/firebase'; // Ensure this path is correct
+import { db } from '../../Configs/firebase'; 
 import './Login.css'; 
 
 export const LogIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate(); // Initialize useNavigate
-    const auth = getAuth(); // Initialize Firebase Auth
+    const navigate = useNavigate(); 
+    const auth = getAuth(); 
 
-    // Function to handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            // Sign in the user with Firebase Authentication
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
             localStorage.setItem("user", JSON.stringify(user))
 
-            // Check if user exists in the doctors collection
             const doctorsCollection = collection(db, 'doctors');
             const patientsCollection = collection(db, 'patients');
             const doctorQuery = query(doctorsCollection, where('email', '==', email));
@@ -32,15 +29,12 @@ export const LogIn = () => {
             const patientSnapshot = await getDocs(patientQuery);
 
             if (!doctorSnapshot.empty) {
-                // User is a doctor
                 localStorage.setItem("role", "doctor")
                 navigate('/DocDashboard');
             } else if (!patientSnapshot.empty) {
-                // User is a patient
                 localStorage.setItem("role", "patient")
                 navigate('/ClientDashboard');
             } else {
-                // No user found in either collection
                 setError('User not found in either doctors or patients collection');
             }
         } catch (err) {
@@ -48,15 +42,14 @@ export const LogIn = () => {
         }
     };
 
-    // Function to handle redirection to Sign Up page
     const handleRedirect = () => {
-        navigate('/SignUp'); // Redirect to the SignUp page
+        navigate('/SignUp'); 
     };
 
     return (
         <div className="loginContainer">
             <h2>Log In</h2>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
+            {error && <p className="errorMessage">{error}</p>}
             <form className="loginForm" onSubmit={handleSubmit}>
                 <div className="formGroup">
                     <label htmlFor="email">Email:</label>
