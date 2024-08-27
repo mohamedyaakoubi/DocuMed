@@ -100,7 +100,7 @@ const DocSignUp = () => {
     
 
     return (
-        <div class="body">
+        <div class="bodySignUp">
             
             <section>
                 <div class="container , containerdiv" >

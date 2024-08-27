@@ -4,11 +4,11 @@ import "./Pricing.css";
 export const Pricing = () => {
     return  (
     
-            <div className="container">
+        <div className="container1">
             <div className="text-center">
-                <div className="nav price-tabs" role="tablist">
-                    <a className="nav-link active" href="#yearly" role="tab" data-toggle="tab">Yearly</a>
-                    <a className="nav-link" href="#monthly" role="tab" data-toggle="tab">Monthly</a>
+                <div className="nav1 price-tabs" role="tablist">
+                    <a className="nav-link1 active" href="#yearly" role="tab" data-toggle="tab">Yearly</a>
+                    <a className="nav-link1" href="#monthly" role="tab" data-toggle="tab">Monthly</a>
                 </div>
             </div>
             <div className="tab-content wow fadeIn" >
@@ -48,7 +48,7 @@ export const Pricing = () => {
                                             <span>Adipisci atque beatae</span>
                                         </li>
                                     </ul>
-                                    <a href="#" className="btn btn-custom">Buy now</a>
+                                    <a href="#" className="btn btn-custom btn1">Buy now</a>
                                 </div>
                             </div>
                         </div>
@@ -124,16 +124,16 @@ export const Pricing = () => {
                                             <span>Adipisci atque beatae</span>
                                         </li>
                                     </ul>
-                                    <a href="#" className="btn btn-custom">Buy now</a>
+                                    <a href="#" className="btn btn-custom btn2">Buy now</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div role="tabpanel" className="tab-pane fade" id="monthly">
-                    <div className="row justify-content-center">
-                        <div className="col-md-6 col-lg-4 mb-30">
-                            <div className="price-item text-center">
+                    <div className="row justify-content-center ">
+                        <div className="col-md-6 col-lg-4 mb-30 ">
+                            <div className="price-item text-center ">
                                 <div className="price-top">
                                     <h4>Session</h4>
                                     <h2 className="mb-0"><sup>$</sup>29</h2>
@@ -170,8 +170,8 @@ export const Pricing = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6 col-lg-4 mb-30">
-                            <div className="price-item text-center popular">
+                        <div className="col-md-6 col-lg-4 mb-30 ">
+                            <div className="price-item text-center popular ">
                                 <div className="price-top">
                                     <h4>Monthly</h4>
                                     <h2 className="mb-0"><sup>$</sup>59</h2>
@@ -208,8 +208,8 @@ export const Pricing = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-6 col-lg-4 mb-30">
-                            <div className="price-item text-center">
+                        <div className="col-md-6 col-lg-4 mb-30 ">
+                            <div className="price-item text-center ">
                                 <div className="price-top">
                                     <h4>Enterprise</h4>
                                     <h2 className="mb-0"><sup>$</sup>99</h2>

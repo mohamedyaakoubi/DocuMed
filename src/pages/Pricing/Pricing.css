@@ -1,7 +1,23 @@
 
 
 /* ===== PRICING PAGE ===== */
+.container1{
+  
+  width: 100%;
+  margin-left: 0rem;
+}
 
+.tab-content{
+  margin-left: 30px;
+  margin-right: 30px;
+  
+}
+
+
+.btn1, .btn2{
+  background-color: #00b5ec;
+  color: #fff;
+}
 .price-tabs {
   background-color: #fff;
   -webkit-box-shadow: 0 5px 20px 0 rgba(39, 39, 39, 0.1);
@@ -10,7 +26,9 @@
   padding: 7px;
   border-radius: 40px;
   border: 1px solid #00b5ec;
-  margin-bottom: 45px;
+  margin-bottom: 5px;
+  margin-top: 150px;
+  
 }
 
 @media (min-width: 768px) {
@@ -19,7 +37,7 @@
   }
 }
 
-.price-tabs .nav-link {
+.price-tabs .nav-link1 {
   color: #00b5ec;
   font-weight: 500;
   font-family: "Montserrat", sans-serif;
@@ -33,21 +51,24 @@
 }
 
 @media (min-width: 768px) {
-  .price-tabs .nav-link {
+  .price-tabs .nav-link1 {
     padding: 12px 40px;
   }
 }
 
-.price-tabs .nav-link.active {
+.price-tabs .nav-link1.active {
   background-color: #00b5ec;
   color: #fff;
 }
 
 .price-item {
+  text-align: left;
+  margin-top: 20px;
   background-color: #fff;
   -webkit-box-shadow: 0 5px 30px 0 rgba(39, 39, 39, 0.15);
           box-shadow: 0 5px 30px 0 rgba(39, 39, 39, 0.15);
   border-radius: 10px;
+  
 }
 
 @media (min-width: 768px) {
@@ -173,3 +194,4 @@
 .popular .price-content ul .zmdi-close, .popular .price-content ul .zmdi-check {
   color: #fff !important;
 }
+
