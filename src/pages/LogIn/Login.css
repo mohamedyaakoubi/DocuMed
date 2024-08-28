@@ -1,7 +1,20 @@
 /* LogIn.css */
 
 .loginContainer {
+    margin-top: 130px;
+    margin-bottom: 10px;
     width: 100%;
+
+    max-width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-left: 50rm;
+    padding: 20px;
+    border: 1px solid #00b5ec; /* Blue border */
+    border-radius: 5px;
+    background-color: #e3f2fd; /* Light blue background */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2); /* Blue shadow */
+
     max-width: 450px;
     margin: 0 auto;
     padding: 20px;
@@ -9,13 +22,19 @@
     border-radius: 8px;
     background-color: #f9f9f9; /* Light grey background */
     box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2); /* Blue shadow */
+
 }
 
-h2 {
+.logini {
     text-align: center;
+
+    margin-bottom: 50px;
+    color: #0056b3; /* Blue heading */
+
     margin-bottom: 20px;
     color: #007BFF; /* Blue heading */
     font-size: 24px;
+
 }
 
 .loginForm {

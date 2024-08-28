@@ -101,10 +101,10 @@ const Navbar = () => {
                 {userRole === 'patient' && (
                   <>
                     <li className="nav-item">
-                      <button className="btn btn-primary mx-2" onClick={handleAppointmentsClick}>My Appointments</button>
+                      <Link className=" nav-link mx-lg-2" onClick={handleAppointmentsClick}>My Appointments</Link>
                     </li>
                     <li className="nav-item">
-                      <button className="btn btn-primary mx-2" onClick={handleMyRecord}>My Records</button>
+                      <Link className=" nav-link mx-lg-2" onClick={handleMyRecord}>My Records</Link>
                     </li>
                   </>
                 )}
@@ -116,13 +116,13 @@ const Navbar = () => {
                   </li>
                 )}
                 <li className="nav-item">
-                  <button className="btn btn-secondary mx-2" onClick={handleParametersClick}>Parameters</button>
+                  <Link className="nav-link mx-lg-2" onClick={handleParametersClick}>Parameters</Link>
                 </li>
               </ul>
             </div>
           </div>
           {currentUser && (
-            <button className="btn btn-outline-danger" onClick={handleLogout}>Logout</button>
+            <Link className="btn btn-outline-danger" onClick={handleLogout}>Logout</Link>
           )}
         </div>
       </nav>
