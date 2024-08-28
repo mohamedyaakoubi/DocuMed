@@ -1,128 +1,162 @@
-.main--content{
-    position: relative;
-    background-color: #ebe9e9;
-    width: 100%;
-    padding: 1rem;
-}
-.header--wrapper img{
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    border-radius: 50%;
-    margin-right: 20px;
-}
-.header--wrapper{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 10 2rem;
-    margin-bottom: 1rem;
-}
-.header--title{
-    color: #00b5ec;
-}
-.user--info{
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-.search--box{
-    background-color: rgb(237, 237, 237);
-    border-radius: 15px;
-    color: rgba(113, 99, 186, 255);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 4px 12px;
-}
-.lined{
-    text-decoration: underline;
-}
-.search--box input{
-    background: transparent;
-    padding: 10px;
-    border: none;
-}
-.search--box i {
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: all 0.5s ease-out;
-}
-.search--box i :hover {
-    transform: scale(1.2);}
-
-.tabular--wrapper{
-    background: #fff;
-    margin-top: 1rem;
-    border-radius: 10px;
-    padding: 2em;
-}
-.table-container{
-    width: 100%;
+/* Common styling */
+.dashboard {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fa;
+  padding: 20px;
 }
 
-table{
-    width: 100%;
-    border-collapse: collapse;
-}
-thead{
-    background-color: #00b5ec;
-    color: #fff;
-}
-th{
-    padding: 15px;
-    text-align: center;
-    
+.logout-btn {
+  background-color: #ff4b5c;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  float: right;
 }
 
-tbody{
-    background-color: #f2f2f2;
-}
-td{
-    padding: 15px;
-    font-size: 14px;
-    color: #333;
-    text-align: center;
-
-}
-tr:nth-child(even){
-    background: #fff;
-}
-tfoot{
-    background-color: #00b5ec;
-    font-weight: bold;
-    color: #fff;
-}
-tfoot td{
-    padding: 15px;
-}
-.table-container button {
-    
-    cursor: pointer;
-    border: none;
-    color: white;
-    border-radius: 2px;
-    padding: 5px;
-    box-shadow: 1px 1px 2px;
-
+.logout-btn:hover {
+  background-color: #ff6b7d;
 }
 
-.accept{
-    background-color: green;
+.main-content {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
-
-.reject{
-    background-color: red;
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
 }
 
-.delete{
-    background-color: orange;
+.header-title span {
+  font-size: 14px;
+  color: #888;
 }
 
-button:hover{
-font-weight: bold;}
+.header-title h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
 
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.search-box {
+  position: relative;
+  margin-right: 20px;
+}
+
+.search-box i {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+
+.search-box input {
+  padding: 10px 10px 10px 30px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+}
+
+.user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.tabular-wrapper .main-title {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+
+th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+
+td {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.patient-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.action-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-btn.accept {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.action-btn.reject {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.action-btn.delay {
+  background-color: #ff9800;
+  color: #fff;
+}
+
+/* Visibility classes */
+.invisible {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.3s, opacity 0.3s linear;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s linear;
+}
+
+/* Add hover effects */
+.action-btn.accept:hover {
+  background-color: #45a049;
+}
+
+.action-btn.reject:hover {
+  background-color: #e53935;
+}
+
+.action-btn.delay:hover {
+  background-color: #fb8c00;
+}

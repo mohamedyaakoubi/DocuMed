@@ -1,0 +1,88 @@
+/* Container for appointments */
+.appointments-container {
+    padding: 2rem;
+    background-color: #f4f4f4;
+}
+
+/* Header for the appointments section */
+.appointments-header {
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* Loading and error messages */
+.appointments-loading,
+.appointments-error {
+    text-align: center;
+    color: #999;
+}
+
+/* Grid for displaying appointment cards */
+.appointments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Individual appointment card */
+.appointment-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.appointment-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Image within the appointment card */
+.appointment-image {
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+/* Information within the appointment card */
+.appointment-info p {
+    margin: 0.5rem 0;
+    color: #666;
+}
+
+/* Doctor's name styling */
+.appointment-doctor {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Styling for the status of the appointment */
+.appointment-status {
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+/* Status colors */
+.appointment-status.pending {
+    color: #FFA500;
+}
+
+.appointment-status.approved {
+    color: #008000;
+}
+
+.appointment-status.rejected {
+    color: #FF0000;
+}
+
+/* Message for when no appointments are found */
+.appointments-empty {
+    text-align: center;
+    color: #999;
+    width: 100%;
+}

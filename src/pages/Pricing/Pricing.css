@@ -1,3 +1,8 @@
+/* Pricing.css */
+
+.container {
+  padding: 40px 15px;
+}
 
 
 /* ===== PRICING PAGE ===== */
@@ -29,26 +34,34 @@
   margin-bottom: 5px;
   margin-top: 150px;
   
+
+.text-center {
+  text-align: center;
+
 }
 
-@media (min-width: 768px) {
-  .price-tabs {
-    margin-bottom: 60px;
-  }
+.nav.price-tabs {
+  margin-bottom: 20px;
 }
+
 
 .price-tabs .nav-link1 {
   color: #00b5ec;
   font-weight: 500;
   font-family: "Montserrat", sans-serif;
+
+.nav-link {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+
   font-size: 16px;
-  padding: 12px 35px;
-  display: inline-block;
-  text-transform: capitalize;
-  border-radius: 40px;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+  color: #007bff;
 }
+
 
 @media (min-width: 768px) {
   .price-tabs .nav-link1 {
@@ -120,78 +133,117 @@
 
 .price-item .price-top * {
   color: #fff;
+
+.nav-link.active {
+  background-color: #007bff;
+  color: #fff;
 }
 
-.price-item .price-top h2 {
-  font-weight: 700;
+.tab-content {
+  margin-top: 30px;
 }
 
-.price-item .price-top h2 sup {
-  top: 13px;
-  left: -5px;
-  font-size: 0.35em;
-  font-weight: 500;
-  vertical-align: top;
+.price-item {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
-.price-item .price-content {
-  padding: 30px;
-  padding-bottom: 40px;
+.price-top {
+  margin-bottom: 20px;
 }
 
-.price-item .price-content li {
-  position: relative;
-  margin-bottom: 15px;
-  margin-left: 10px;
-  margin-right: 10px;
-  text-align: center;
+.price-top h4 {
+  font-size: 18px;
+  color: #333;
 }
 
-@media (min-width: 992px) {
-  .price-item .price-content li {
-    padding-left: 28px;
-    text-align: left;
-  }
+.price-top h2 {
+  font-size: 32px;
+  margin: 0;
+  color: #333;
 }
 
-@media (min-width: 992px) {
-  .price-item .price-content li i {
-    position: absolute;
-    left: 0;
-    top: 3px;
-  }
+.price-top sup {
+  font-size: 16px;
 }
 
-.price-item .price-content .zmdi-check {
-  color: #28a745;
+.price-top span {
+  font-size: 14px;
+  color: #666;
 }
 
-.price-item .price-content .zmdi-close {
-  color: #f00;
+.price-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.price-content ul li {
+  padding: 10px 0;
+}
+
+.price-content ul li i {
+  color: #007bff;
+}
+
+.price-content ul li span {
+  font-size: 14px;
+  color: #333;
+}
+
+.btn-custom {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.btn-custom.btn-light {
+  background-color: #f8f9fa;
+  color: #007bff;
 }
 
 .popular {
-  background-color: #00b5ec;
+  border: 2px solid #007bff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.popular .price-top {
-  background-color: #fff;
+.mb-30 {
+  margin-bottom: 30px;
 }
 
-.popular .price-top:after {
-  background-color: #fff;
+.mt-md-4 {
+  margin-top: 20px;
 }
 
-.popular .price-top h4 {
-  color: #101f41;
+.text-left {
+  text-align: left;
 }
 
-.popular .price-top h2, .popular .price-top span, .popular .price-top sup {
-  color: #00b5ec;
+.c-black {
+  color: #000;
 }
+
 
 .popular .price-content ul *,
 .popular .price-content ul .zmdi-close, .popular .price-content ul .zmdi-check {
   color: #fff !important;
+}
+
+
+.border-bottom {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.pb-3 {
+  padding-bottom: 15px;
 }
 
